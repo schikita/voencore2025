@@ -164,19 +164,19 @@
         }
 
         .day2-card strong {
-            color: var(--accent);
+            color: rgba(90, 129, 17, 0.842);
             font-weight: 700;
         }
 
         .day2-card em {
-            color: var(--primary);
+            color: rgba(90, 129, 17, 0.884);
             font-style: normal;
             font-weight: 600;
         }
 
         .day2-sub {
             font-size: clamp(20px, 2.2vw, 24px);
-            color: var(--accent);
+            color: rgba(90, 129, 17, 0.5);
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
@@ -194,7 +194,7 @@
             width: 50px;
             height: 50px;
             border: none;
-            border-radius: 50%;
+            border-radius: 10px;
             background: #5a7242;
             color: var(--primary-ink);
             cursor: pointer;
@@ -268,9 +268,9 @@
         }
 
         .day2-dot.active {
-            background: var(--accent);
+            background: rgba(90, 129, 17, 0.5);
             transform: scale(1.2);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+            box-shadow: 0 0 15px rgba(104, 163, 9, 0.6);
         }
 
         .day2-dot:hover::before {
@@ -287,10 +287,10 @@
             bottom: 0;
             left: 0;
             height: 3px;
-            background: var(--accent);
+            background: rgba(90, 129, 17, 0.5);
             transition: width var(--speed) ease;
             border-radius: 0 3px 3px 0;
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 10px rgba(90, 129, 17, 0.5);
         }
 
         /* ===== Animations ===== */
