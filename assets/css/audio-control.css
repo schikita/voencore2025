@@ -1,0 +1,11 @@
+/* Audio control */
+.audio-ctrl {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+}
+.audio-ctrl .button {
+  padding: 10px 14px;
+  font-size: 14px;
+}

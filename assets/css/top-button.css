@@ -1,0 +1,2 @@
+.to-top{position:fixed;left:16px;bottom:16px;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.to-top.show{opacity:1;pointer-events:auto}

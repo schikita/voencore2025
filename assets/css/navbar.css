@@ -1,0 +1,187 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* выше героя/видео */
+  background: rgba(10, 32, 18, 0.65);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1a4a2e;
+}
+.navbar .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px var(--pad, 24px);
+}
+.navbar .brand {
+  color: #cfe3ff;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.navbar .tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.navbar .tabs a {
+  color: #cfe3ff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+.navbar .tabs a.active {
+  border-color: #2a4777;
+  background: linear-gradient(180deg, #0f203a, #0a1628);
+}
+
+/* Логотип */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.logo img:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* Текст SB.BY */
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+/* Палитра: хаки, зелёный, тёмно-зелёный */
+:root {
+  --khaki: #bdb76b; /* тёмный хаки / dark khaki */
+  --olive: #556b2f; /* оливковый хаки */
+  --green: #2e8b57; /* насыщенный зелёный (sea green) */
+  --dark-green: #064e3b; /* тёмно-зелёный */
+}
+
+/* Разрешаем плавную анимацию пользовательского угла (поддерживается в современных браузерах) */
+@property --ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Красивое переливание для текста (логотип/заголовок) */
+.logo-text {
+  --ang: 0deg; /* будет крутиться от 0 до 360 */
+  background: conic-gradient(
+    from var(--ang),
+    var(--khaki) 0%,
+    var(--green) 30%,
+    var(--dark-green) 60%,
+    var(--olive) 85%,
+    var(--khaki) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  /* мягкое свечение в тон зелёному */
+  text-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 18px rgba(46, 139, 87, 0.25);
+
+  animation: logoSpin 10s ease-in-out infinite alternate,
+    logoPulse 4s ease-in-out infinite;
+}
+
+/* Плавный поворот градиента (основное движение) */
+@keyframes logoSpin {
+  to {
+    --ang: 360deg;
+  }
+}
+
+/* Лёгкое «дыхание» свечения, без смены цветов */
+@keyframes logoPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(46, 139, 87, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(46, 139, 87, 0.35));
+  }
+}
+
+/* Ховер — чуть быстрее и ярче */
+.logo-text:hover {
+  animation-duration: 7s, 3s;
+  text-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 22px rgba(46, 139, 87, 0.35);
+}
+
+/* ФОЛБЭК для старых браузеров без @property/conic-gradient:
+   не меняем сами цвета — двигаем позицию линейного градиента */
+@supports not (background: conic-gradient(from 0deg, red, blue)) {
+  .logo-text {
+    background: linear-gradient(
+      90deg,
+      var(--khaki) 0%,
+      var(--green) 40%,
+      var(--dark-green) 80%
+    );
+    background-size: 200% 200%;
+    animation: logoSlide 8s ease-in-out infinite alternate,
+      logoPulse 4s ease-in-out infinite;
+  }
+  @keyframes logoSlide {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+}
+
+
+/* === Burger & responsive menu === */
+.burger{
+  display:none;
+  width:40px;height:40px;
+  align-items:center;justify-content:center;
+  border:1px solid #1a4a2e;border-radius:10px;background:rgba(0,0,0,.2);
+}
+.burger .burger-bar{display:block;width:22px;height:2px;background:#e5f7ec;border-radius:2px;position:relative}
+.burger .burger-bar + .burger-bar{margin-top:5px}
+.navbar.open .burger .burger-bar:first-child{transform:translateY(7px) rotate(45deg)}
+.navbar.open .burger .burger-bar:nth-child(2){opacity:0}
+.navbar.open .burger .burger-bar:last-child{transform:translateY(-7px) rotate(-45deg)}
+
+/* Menu panel for mobile */
+.tabs{transition:transform .25s ease, opacity .25s ease}
+@media (max-width: 1024px){
+  .burger{display:inline-flex}
+  .tabs{
+    position: absolute; right:16px; top: 64px;
+    background: rgba(10,32,18,.95);
+    border:1px solid #1a4a2e; border-radius:12px;
+    padding:12px; display:flex; flex-direction:column; gap:8px;
+    transform: translateY(-8px) scale(.98); opacity:0; pointer-events:none;
+  }
+  .tabs a{padding:10px 12px; border-radius:8px; background:transparent}
+  .tabs a:hover{background:rgba(255,255,255,.06)}
+  .tabs.open{transform: translateY(0) scale(1); opacity:1; pointer-events:auto}
+  body.no-scroll{overflow:hidden}
+}

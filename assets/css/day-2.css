@@ -1,0 +1,371 @@
+:root {    
+    --panel: rgba(41, 83, 18, 0.281); /* камуфляжный тёмно-зелёный */
+    --ink: #e0e3d4; /* военный бежево-серый для текста */
+    --muted: #9da993; /* приглушённый зелёно-серый */
+    --primary: #5a7242; /* оливковый зелёный */
+    --primary-ink: #e8eed8; /* светлый бежевый для текста на primary */
+    --accent: #c19a6b; /* цвет пустынного камуфляжа (песочный) */
+    --radius: 10px; /* немного меньше скругление */
+    --shadow: 0 12px 40px rgba(10, 15, 5, 0.5); /* тёмные зелёные тени */
+    --gap: 24px;
+    --container: 1200px;
+    --blur: 12px;
+    --border: rgba(150, 150, 120, 0.15); /* серо-зелёная граница */
+    --speed: 350ms; /* чуть быстрее анимации */
+}
+
+
+.day {
+            position: relative;
+            color: var(--ink);
+            isolation: isolate;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            max-width: var(--container);
+            margin-inline: auto;
+            padding: clamp(16px, 4vw, 32px);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== Hero background with parallax ===== */
+        .day-bg {
+            position: absolute;
+            inset: -4vh 0 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .day-bg__video {
+            width: 100%;
+            height: 120vh;
+            object-fit: cover;
+            transform: translateZ(0);
+            will-change: transform;
+            filter: saturate(1.05) contrast(1.06) brightness(.7);
+        }
+
+        .day-bg__gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(1200px 600px at 80% 10%, rgba(41, 99, 91, 0.18), transparent 60%),
+                linear-gradient(180deg, rgba(3, 8, 15, .0) 0%, rgba(3, 8, 15, .4) 35%, rgba(3, 8, 15, .85) 80%);
+        }
+
+        .day-bg__noise {
+            position: absolute;
+            inset: 0;
+            opacity: .07;
+            mix-blend-mode: overlay;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #fff 2px, transparent 0),
+                radial-gradient(circle at 75% 75%, #fff 2px, transparent 0);
+            background-size: 50px 50px;
+            animation: noiseMove 20s linear infinite;
+        }
+
+        @keyframes noiseMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* ===== Heading ===== */
+        .day-head {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .day-title {
+            font-size: clamp(28px, 4.6vw, 56px);
+            line-height: 1.05;
+            letter-spacing: .2px;
+            margin: 0 0 12px;
+            background: linear-gradient(180deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .15);
+        }
+
+        .day-lead {
+            font-size: clamp(16px, 1.6vw, 18px);
+            opacity: .95;
+            max-width: 80ch;
+            margin: 10px auto;
+            color: var(--muted);
+        }
+
+        /* ===== Slider ===== */
+        .day2-slider {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        .day2-track {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: rgba(0, 0, 0, 0.623);
+            border: 1px solid var(--border);
+            backdrop-filter: saturate(1.2) blur(var(--blur));
+            box-shadow: var(--shadow);
+        }
+
+        .day2-card {
+            padding: clamp(24px, 4vw, 48px);
+            min-height: 400px;
+            display: none;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+        }
+
+        .day2-card.active {
+            display: block;
+        }
+
+        .day2-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; transform: translateX(-100%); }
+            50% { opacity: 1; transform: translateX(100%); }
+        }
+
+        .day2-card p {
+            font-size: clamp(16px, 1.8vw, 18px);
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            opacity: 0;
+            animation: typewriter 0.8s ease-out 0.2s forwards;
+        }
+
+        .day2-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .day2-card strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .day2-card em {
+            color: var(--primary);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .day2-sub {
+            font-size: clamp(20px, 2.2vw, 24px);
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* ===== Navigation ===== */
+        .day2-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 0 1rem;
+        }
+
+        .day2-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: #5a7242;
+            color: var(--primary-ink);
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day2-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--speed) ease;
+        }
+
+        .day2-btn:hover::before {
+            opacity: 1;
+        }
+
+        .day2-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .day2-btn:active {
+            transform: scale(0.95);
+        }
+
+        .day2-prev::after {
+            content: '‹';
+        }
+
+        .day2-next::after {
+            content: '›';
+        }
+
+        /* ===== Dots Navigation ===== */
+        .day2-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .day2-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all var(--speed) ease;
+            border: none;
+            position: relative;
+        }
+
+        .day2-dot::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--speed) ease;
+        }
+
+        .day2-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+        }
+
+        .day2-dot:hover::before {
+            opacity: 0.3;
+        }
+
+        .day2-dot:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== Progress Bar ===== */
+        .day2-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width var(--speed) ease;
+            border-radius: 0 3px 3px 0;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes typewriter {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .day2-card {
+                padding: clamp(16px, 4vw, 24px);
+                min-height: 350px;
+            }
+
+            .day2-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .day2-nav {
+                margin-top: 1rem;
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .day2-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .day2-dots {
+                margin: 0;
+            }
+        }
+
+        /* ===== Accessibility ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .day-bg__noise {
+                animation: none;
+            }
+        }
+
+        /* ===== Focus styles ===== */
+        .day2-btn:focus,
+        .day2-dot:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }

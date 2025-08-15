@@ -1,0 +1,14 @@
+@font-face {
+    font-family: TTNorm;
+    src: url('/assets/fonts/TTNormsProMonoVariable.ttf');
+}
+
+@font-face {
+    font-family: paradisio;
+    src: url('/assets/fonts/Paradisio-Regular.otf');
+}
+
+@font-face {
+    font-family: tiktok;
+    src: url('/assets/fonts/TikTokSans[opsz,slnt,wdth,wght].ttf');
+}

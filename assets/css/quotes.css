@@ -1,0 +1,31 @@
+/* Quotes / FAQ */
+.quote {
+  padding: 26px;
+  font-size: 18px;
+  color: #d9e6ff;
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(180deg, #0e1830, #0b1324);
+}
+.quote cite {
+  display: block;
+  margin-top: 10px;
+  color: #9fb2d6;
+  font-style: normal;
+}
+.faq {
+  display: grid;
+  gap: 12px;
+}
+.details {
+  background: linear-gradient(180deg, #0c1424, #0a1220);
+  border: 1px solid #1c2d3f;
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.details summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+.details[open] {
+  outline: 1px solid #234172;
+}
