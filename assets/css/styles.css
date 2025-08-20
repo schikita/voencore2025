@@ -218,6 +218,17 @@ body::after {
   .facts {
     grid-template-columns: 1fr;
   }
+
+  .badges {
+  position: absolute;
+
+  inset: -100px 0 auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  
+}
 }
 
 .program {

@@ -33,7 +33,7 @@
   filter:saturate(1.06) contrast(1.08) brightness(.9);
 }
 .vcx-hero__overlay{
-  position:absolute; inset:0; z-index:1;
+  position:absolute; inset:0; z-index:-1;
   background:
     radial-gradient(1200px 600px at 80% 8%, rgba(45,212,191,.16), transparent 60%),
     linear-gradient(180deg, rgba(3,8,15,.05) 0%, rgba(3,8,15,.45) 35%, rgba(3,8,15,.88) 85%),
@@ -58,6 +58,8 @@
   background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,.08) 0 1px, transparent 2px 6px);
   animation:vcx-scanmove 6s linear infinite;
 }
+
+
 
 .vcx-hero__tag{
   display:inline-block; padding:.25rem .6rem; border:1px solid var(--accent);
@@ -114,4 +116,31 @@
   .vcx-hero__overlay::before,
   .vcx-hero__grain,
   .vcx-hero__scan { animation:none !important; }
+}
+
+@media (max-width: 640px) {
+  .vcx-hero__overlay{
+    /* без нижней радиальной виньетки */
+    background:
+      radial-gradient(900px 450px at 80% 8%, rgba(45,212,191,.14), transparent 60%),
+      linear-gradient(180deg,
+        rgba(3,8,15,.06) 0%,
+        rgba(3,8,15,.40) 35%,
+        rgba(3,8,15,.85) 100%);
+  }
+ 
+  .vcx-hero__grain{ opacity:.04; }          
+
+    .vcx-hero__overlay{ display: none !important; }
+  .vcx-hero__overlay::before{ display: none !important; }
+}
+
+.vcx-hero__overlay { pointer-events: none; }
+
+.tasks__item:last-child {  
+  z-index: 10;         
+}
+
+.tasks {
+  padding-bottom: 10px;
 }
