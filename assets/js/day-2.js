@@ -43,8 +43,7 @@
                         this.toggleAutoPlay();
                     }
                 });
-
-                // Touch gestures
+           
                 let startX, startY, distX, distY;
                 const slider = document.querySelector('.day2-slider');
                 
@@ -75,20 +74,18 @@
                     this.resumeAutoPlay();
                 });
 
-                // Pause on hover
+        
                 slider.addEventListener('mouseenter', () => this.pauseAutoPlay());
                 slider.addEventListener('mouseleave', () => this.resumeAutoPlay());
             }
 
             goToSlide(index) {
-                // Remove active classes
+            
                 this.slides[this.currentSlide].classList.remove('active');
-                document.querySelectorAll('.day2-dot')[this.currentSlide].classList.remove('active');
+                document.querySelectorAll('.day2-dot')[this.currentSlide].classList.remove('active');                
                 
-                // Update current slide
-                this.currentSlide = index;
-                
-                // Add active classes
+                this.currentSlide = index;                
+               
                 this.slides[this.currentSlide].classList.add('active');
                 document.querySelectorAll('.day2-dot')[this.currentSlide].classList.add('active');
                 
@@ -144,16 +141,13 @@
             }
         }
 
-        // Initialize after DOM loaded
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize slider
-            new Day2Slider();
-            
-            // Video background handling
+ 
+            new Day2Slider();            
+
             const video = document.querySelector('.day-bg__video');
             
-            if (video) {
-                // Ensure video plays
+            if (video) {      
                 const playVideo = () => {
                     video.play().catch(e => {
                         console.log('Autoplay blocked:', e);
@@ -163,10 +157,10 @@
                 video.addEventListener('loadedmetadata', playVideo);
                 video.addEventListener('canplay', playVideo);
 
-                // Click to play if autoplay is blocked
+      
                 document.addEventListener('click', playVideo, { once: true });
 
-                // Parallax effect
+
                 let ticking = false;
                 const updateParallax = () => {
                     const scrolled = window.pageYOffset;
@@ -181,8 +175,7 @@
                     }
                 });
             }
-
-            // Intersection Observer for animations
+   
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'

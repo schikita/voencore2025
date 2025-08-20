@@ -1,0 +1,246 @@
+:root{
+  --mil-bg:#0b1411;
+  --mil-accent:#2dd4bf;
+  --mil-ink:#e8eef4;
+  --mil-soft:#111c18;
+  --mil-line:#23342d;
+}
+
+#day-4.day--military{
+  position: relative;
+  overflow: hidden;
+  color: var(--mil-ink);
+  min-height: 100vh;
+  padding: clamp(48px, 6vw, 88px) 0;
+  background: linear-gradient(180deg, #0b1411 0%, #0a0f0e 100%);
+}
+
+.day4__bg{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(45,212,191,.06), transparent 60%),
+    radial-gradient(900px 400px at 110% 10%, rgba(45,212,191,.05), transparent 65%),
+    url('./assets/img/day4/day-4-poster.jpg') center/cover no-repeat;
+  z-index: 0;
+}
+
+.day__bg-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none;}
+.day__bg-overlay{position:absolute; inset:0; background:rgba(11,20,17,.72); z-index:1; pointer-events:none;}
+#day-4 > .container{position:relative; z-index:3}
+
+.day__header{max-width:900px;margin:0 auto clamp(24px,3vw,40px)}
+.day__tag{display:inline-block;padding:.25rem .6rem;border:1px solid var(--mil-accent);border-radius:999px;font-size:.8rem;letter-spacing:.06em;color:var(--mil-accent);background:rgba(45,212,191,.06)}
+.day__title{margin:.6rem 0 0;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.2}
+.day__lead{margin:.9rem 0 0;color:#cde5de;max-width:75ch}
+
+.campfire{margin: clamp(28px,4vw,56px) 0}
+.campfire__title{font-size:1.2rem;margin:0 0 .8rem}
+.campfire__grid{display:grid;gap:clamp(14px,2.5vw,22px);grid-template-columns:1.1fr .9fr}
+@media (max-width: 900px){.campfire__grid{grid-template-columns:1fr}}
+.campfire__content p{margin:0 0 .8rem;color:#cfe5df}
+.audio-inline{margin-top:.6rem}
+.campfire__media{margin:0;align-self:start;border:1px solid var(--mil-line);border-radius:14px;overflow:hidden;background:#0b0f0e}
+.campfire__media img{display:block;width:100%;height:auto}
+.campfire__media figcaption{font-size:.82rem;color:#b9d3cd;padding:.5rem .75rem;border-top:1px solid var(--mil-line)}
+
+.tasks{margin: clamp(24px,4vw,48px) 0}
+.tasks__title{margin:0 0 .6rem}
+.tasks__list{display:flex;flex-wrap:wrap;gap:.6rem;padding:0;list-style:none}
+.tasks__item{border:1px dashed var(--mil-accent);color:var(--mil-accent);background:rgba(45,212,191,.04);padding:.45rem .7rem;border-radius:999px;font-weight:600;font-size:.92rem;letter-spacing:.02em}
+
+.why {
+  margin: clamp(28px, 4vw, 56px) auto;
+  max-width: 1000px;        
+  padding: 0 16px;         
+}
+.why .day__title{ margin-bottom: clamp(14px,2vw,20px); }
+
+.why__item {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr; 
+  gap: clamp(16px, 3vw, 24px);
+  align-items: stretch;
+  margin-top: clamp(12px, 2vw, 18px);
+}
+.why__item--reverse {
+  direction: rtl;
+}
+.why__item--reverse > * {
+  direction: ltr;
+}
+
+
+@media (max-width: 900px) {
+  .why__item,
+  .why__item--reverse {
+    grid-template-columns: 1fr;
+  }
+  .why__media {
+    min-height: clamp(200px, 50vw, 300px);
+  }
+}
+
+.why__content{ display:flex; flex-direction:column; justify-content:center; }
+.quote__header{ margin:0 0 .5rem; }
+.quote__name{ margin:0; font-size:1rem; color:#eaf6f2; }
+.quote__call{
+  display:inline-block; margin-left:.35rem;
+  font-size:.85rem; color:#9fd8cd; background:rgba(45,212,191,.08);
+  border:1px solid var(--mil-line); border-radius:999px; padding:.1rem .45rem;
+}
+.quote__text{ margin:0; color:#cfe5df; line-height:1.65; }
+.quote__text::before{
+  content:""; display:block; width:44px; height:4px; margin:0 0 .8rem;
+  background: linear-gradient(90deg, #5a7242, #c19a6b);
+  border-radius:3px;
+}
+
+.why__media{
+  position:relative; margin:0;
+  border:1px solid var(--mil-line);
+  border-radius:14px; overflow:hidden;
+  background:#0b0f0e; box-shadow: var(--shadow);
+  min-height: clamp(220px, 28vw, 340px); /* уменьшил высоту */
+}
+.why__media img{
+  display:block; width:100%; height:100%;
+  object-fit: cover; object-position: center 35%;
+  filter: saturate(1.05) contrast(1.06) brightness(.95);
+  transform: scale(1.02);
+}
+
+.why__tag{
+  position:absolute; left:12px; bottom:12px;
+  background: linear-gradient(180deg, rgba(193,154,107,.95), rgba(193,154,107,.85));
+  color:#1e1a14; font-weight:700; font-size:.82rem;
+  padding:.25rem .5rem; border-radius:6px;
+  border:1px solid rgba(50,40,28,.35);
+  box-shadow: 0 6px 14px rgba(193,154,107,.25);
+}
+
+.why__media::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:10px;
+  background:
+    repeating-linear-gradient(90deg, rgba(90,114,66,.35) 0 18px, transparent 18px 22px),
+    linear-gradient(180deg, rgba(90,114,66,.35), rgba(90,114,66,.05));
+  mix-blend-mode: overlay;
+}
+.why__media::after{
+  content:""; position:absolute; inset:0; opacity:.12; pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 5px, #fff1 5px 6px),
+    repeating-linear-gradient(90deg, transparent 0 5px, #fff1 5px 6px);
+}
+
+:root{ 
+    --mil-accent-ink:#e8eed8;
+    --mil-line:#23342d;            
+    --mil-sand:#c19a6b;             
+    --mil-glass:rgba(11,20,17,.65);
+    --radius:14px; --shadow:0 16px 42px rgba(0,0,0,.45);
+  }
+
+.mil-audio{
+    --h: 56px;
+    position: relative;
+    margin-top: .8rem;
+  }
+
+  .mil-audio__panel{
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    gap: .75rem;
+    align-items: center;
+    padding: .6rem .75rem;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00)),
+      var(--mil-glass);
+    border: 1px solid var(--mil-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px) saturate(1.15);
+  }
+
+  .mil-audio__btn{
+    width: var(--h); height: var(--h);
+    display: grid; place-items: center;
+    background: linear-gradient(180deg, rgba(90,114,66,.22), rgba(90,114,66,.08));
+    border: 1px dashed #5a7242;
+    border-radius: 10px;
+    color: #e8eed8;
+    cursor: pointer;
+    position: relative;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .mil-audio__btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 18px rgba(90,114,66,.3); }
+  .mil-audio__btn:active{ transform: translateY(0); }
+  .mil-audio__btn .mil-ic{ width: 22px; height: 22px; fill: #e8eed8; opacity: 1; }
+  .mil-audio__btn .is-pause{ display: none; }
+
+  .mil-audio__progress{
+    position: relative; height: 12px; cursor: pointer;
+    border-radius: 999px; outline: none;
+  }
+  .mil-audio__progress-track{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, #0f1a16, #0b1310);
+    border: 1px solid var(--mil-line);
+    border-radius: inherit;
+  }
+  .mil-audio__progress-fill{
+    position:absolute; inset:0; width:0%;
+    background: linear-gradient(90deg, rgba(90,114,66,.55), rgba(193,154,107,.45));
+    box-shadow: inset 0 0 12px rgba(90,114,66,.6);
+    border-radius: inherit;
+    transition: width .15s linear;
+  }
+  .mil-audio__progress-head{
+    position:absolute; top:50%; transform:translate(-50%,-50%);
+    left:0%; width:18px; height:18px; border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, #fff3 0 35%, #fff0 36% 100%), #90a57f;
+    border:1px solid #5c6f4c;
+    box-shadow: 0 0 10px #90a57f66, inset 0 1px 2px #0008;
+    transition: left .15s linear;
+  }
+  .mil-audio__stitches{
+    position:absolute; inset:1px; border-radius:inherit;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 8px, rgba(193,154,107,.20) 8px 9px),
+      repeating-linear-gradient(180deg, transparent 0 8px, rgba(193,154,107,.12) 8px 9px);
+    pointer-events:none; mix-blend-mode: screen; opacity:.35;
+  }
+
+  .mil-audio__time{ display:flex; gap:.35rem; align-items:center; font-variant-numeric: tabular-nums;
+    color: #cfe5df; font-size:.92rem; }
+  .mil-audio__sep{ opacity:.6 }
+
+  .mil-audio__mute{
+    width: 40px; height: 40px; display:grid; place-items:center;
+    background: #0f1714; border:1px solid var(--mil-line); border-radius:10px; cursor:pointer;
+  }
+  .mil-audio__mute .mil-ic{ width:18px; height:18px; fill: #e8eed8; }
+  .mil-audio__mute .is-muted{ display:none; }
+
+  .mil-audio__volume{
+    appearance: none; width: 110px; height: 10px; border-radius:999px;
+    background: #0f1714; border:1px solid var(--mil-line);
+  }
+  .mil-audio__volume::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:16px; height:16px; border-radius:50%;
+    background:#c19a6b; border:1px solid #7f674c; box-shadow:0 0 8px #c19a6b66;
+    cursor:pointer;
+  }
+  .mil-audio__volume::-moz-range-thumb{
+    width:16px; height:16px; border-radius:50%;
+    background:#c19a6b; border:1px solid #7f674c; box-shadow:0 0 8px #c19a6b66; cursor:pointer;
+  }
+
+
+  .mil-audio__btn:focus, .mil-audio__mute:focus, .mil-audio__progress:focus,
+  .mil-audio__volume:focus { outline:2px solid var(--mil-sand); outline-offset:2px; }
+
+
+  @media (max-width: 640px){
+    .mil-audio__panel{ grid-template-columns: auto 1fr auto auto; }
+    .mil-audio__volume{ display:none; }
+  }

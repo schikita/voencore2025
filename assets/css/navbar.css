@@ -1,45 +1,35 @@
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000; /* выше героя/видео */
-  background: rgba(10, 32, 18, 0.65);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid #1a4a2e;
+.navbar{
+  position:fixed; inset:0 auto auto 0; right:0;
+  z-index:2000;
+  background:rgba(10,32,18,.65);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #1a4a2e;
 }
-.navbar .inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px var(--pad, 24px);
+.navbar .inner{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:10px var(--pad,24px);
 }
+
 .navbar .brand {
   color: #cfe3ff;
   text-decoration: none;
   font-weight: 800;
   letter-spacing: 0.2px;
 }
-.navbar .tabs {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.navbar .tabs a {
-  color: #cfe3ff;
-  text-decoration: none;
-  font-weight: 700;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-}
-.navbar .tabs a.active {
-  border-color: #2a4777;
-  background: linear-gradient(180deg, #0f203a, #0a1628);
+.navbar .tabs{display:flex; gap:12px; flex-wrap:wrap;}
+.navbar .tabs a{
+  color:#e6f4ec; text-decoration:none; font-weight:700;
+  padding:8px 12px; border-radius:10px; border:1px solid transparent;
 }
 
-/* Логотип */
+.navbar .tabs a:last-child {
+  color: #2e8b57;
+}
+
+.navbar .tabs a:hover,
+.navbar .tabs a:focus-visible{ border-color:#2e8b57; background:rgba(46,139,87,.08); }
+.navbar .tabs a.active{ border-color:#2e8b57; background:linear-gradient(180deg,#0e2418,#0a1a13); }
+
 .logo {
   display: flex;
   align-items: center;
@@ -58,7 +48,6 @@
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
 }
 
-/* Текст SB.BY */
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
@@ -68,24 +57,21 @@
   animation: logoGlow 3s ease-in-out infinite;
 }
 
-/* Палитра: хаки, зелёный, тёмно-зелёный */
 :root {
-  --khaki: #bdb76b; /* тёмный хаки / dark khaki */
-  --olive: #556b2f; /* оливковый хаки */
-  --green: #2e8b57; /* насыщенный зелёный (sea green) */
-  --dark-green: #064e3b; /* тёмно-зелёный */
+  --khaki: #bdb76b; 
+  --olive: #556b2f; 
+  --green: #2e8b57; 
+  --dark-green: #064e3b;
 }
 
-/* Разрешаем плавную анимацию пользовательского угла (поддерживается в современных браузерах) */
 @property --ang {
   syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
 }
 
-/* Красивое переливание для текста (логотип/заголовок) */
 .logo-text {
-  --ang: 0deg; /* будет крутиться от 0 до 360 */
+  --ang: 0deg; 
   background: conic-gradient(
     from var(--ang),
     var(--khaki) 0%,
@@ -99,22 +85,17 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-
-  /* мягкое свечение в тон зелёному */
   text-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 18px rgba(46, 139, 87, 0.25);
-
   animation: logoSpin 10s ease-in-out infinite alternate,
     logoPulse 4s ease-in-out infinite;
 }
 
-/* Плавный поворот градиента (основное движение) */
 @keyframes logoSpin {
   to {
     --ang: 360deg;
   }
 }
 
-/* Лёгкое «дыхание» свечения, без смены цветов */
 @keyframes logoPulse {
   0%,
   100% {
@@ -125,14 +106,11 @@
   }
 }
 
-/* Ховер — чуть быстрее и ярче */
 .logo-text:hover {
   animation-duration: 7s, 3s;
   text-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 22px rgba(46, 139, 87, 0.35);
 }
 
-/* ФОЛБЭК для старых браузеров без @property/conic-gradient:
-   не меняем сами цвета — двигаем позицию линейного градиента */
 @supports not (background: conic-gradient(from 0deg, red, blue)) {
   .logo-text {
     background: linear-gradient(
@@ -155,21 +133,23 @@
   }
 }
 
-
-/* === Burger & responsive menu === */
 .burger{
-  display:none;
-  width:40px;height:40px;
-  align-items:center;justify-content:center;
-  border:1px solid #1a4a2e;border-radius:10px;background:rgba(0,0,0,.2);
+  display:none; position:relative;
+  width:40px; height:40px; border-radius:10px;
+  border:1px solid #1a4a2e; background:rgba(0,0,0,.24);
+  cursor:pointer; z-index:2100; 
+  transition:box-shadow .2s ease, background .2s ease;
 }
-.burger .burger-bar{display:block;width:22px;height:2px;background:#e5f7ec;border-radius:2px;position:relative}
-.burger .burger-bar + .burger-bar{margin-top:5px}
-.navbar.open .burger .burger-bar:first-child{transform:translateY(7px) rotate(45deg)}
-.navbar.open .burger .burger-bar:nth-child(2){opacity:0}
-.navbar.open .burger .burger-bar:last-child{transform:translateY(-7px) rotate(-45deg)}
+.burger:hover{ box-shadow:0 8px 20px rgba(0,0,0,.3); }
 
-/* Menu panel for mobile */
+.burger .burger-bar{
+  position:absolute; left:50%; width:22px; height:2px; background:#e5f7ec; border-radius:2px;
+  transform:translateX(-50%); transition:transform .25s ease, opacity .25s ease;
+}
+.burger .burger-bar:nth-child(1){ top:12px; }
+.burger .burger-bar:nth-child(2){ top:19px; }
+.burger .burger-bar:nth-child(3){ top:26px; }
+
 .tabs{transition:transform .25s ease, opacity .25s ease}
 @media (max-width: 1024px){
   .burger{display:inline-flex}
@@ -185,3 +165,4 @@
   .tabs.open{transform: translateY(0) scale(1); opacity:1; pointer-events:auto}
   body.no-scroll{overflow:hidden}
 }
+

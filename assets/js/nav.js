@@ -24,7 +24,6 @@
     if(e.key==='Escape') close();
   });
 
-  // Reveal on scroll
   const io = new IntersectionObserver(entries=>{
     for (const en of entries){
       if (en.isIntersecting){

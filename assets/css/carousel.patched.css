@@ -1,0 +1,134 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid #1c2d3f;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.slide {
+  min-width: 100%;
+  aspect-ratio: 16/9;
+  display: grid;
+  place-items: center;
+  background: #0e1a30;
+}
+.carousel .nav {
+  position: absolute;
+  inset: auto 0 12px 0;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3a4e74;
+  border: 1px solid #6b88c0;
+  opacity: 0.85;
+  cursor: pointer;
+}
+.dot.active {
+  background: #9cc2ff;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15, 25, 45, 0.6);
+  border: 1px solid #1a2d4a;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.arrow:hover {
+  filter: brightness(1.1);
+}
+.arrow.prev {
+  left: 12px;
+}
+.arrow.next {
+  right: 12px;
+}
+
+/* Mobile fixes */
+.carousel { contain: layout size; }
+.carousel-track { will-change: transform; touch-action: pan-y; }
+.slide { flex: 0 0 100%; }
+@media (max-width: 480px){
+  .slide { aspect-ratio: auto; }
+  .slide img, .slide picture { width: 100%; height: auto; display:block; }
+}
+
+/* ===== Mobile: превратить .mil-columns в слайдер ===== */
+@media (max-width: 600px) {
+  .military-gallery { overflow: hidden; }
+
+  .mil-columns {
+    display: flex;
+    flex-wrap: nowrap;          /* важно: не переносить карточки */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;                  /* можно 0, если не нужен зазор между кадрами */
+    padding-inline: 12px;       /* боковые отступы внутри вьюпорта */
+  }
+
+  .mil-card {
+    flex: 0 0 100%;             /* каждый кадр = ширина экрана */
+    max-width: 100%;
+    scroll-snap-align: center;  /* фиксируемся по центру */
+    position: relative;
+    border-radius: var(--radius, 12px);
+    overflow: hidden;
+  }
+
+  .mil-img {
+    display: block;
+    width: 100%;
+    height: auto;               /* без фиксированных высот */
+    object-fit: cover;
+  }
+
+  /* Текстовая плашка и кнопка открытия остаются кликабельными */
+  .mil-open {
+    position: absolute; inset: 0;
+    background: none; border: 0; cursor: zoom-in;
+  }
+
+  /* Скрыть системный скроллбар (не обязательно) */
+  .mil-columns::-webkit-scrollbar { display: none; }
+  .mil-columns { scrollbar-width: none; }
+}
+
+/* Мобилка: тач по карточке только показывает подпись, модалка не открывается */
+@media (hover: none) and (pointer: coarse), (max-width: 600px) {
+  /* отключаем клик по кнопке-оверлею, чтобы не открывался лайтбокс */
+  .military-gallery .mil-open { pointer-events: none; }
+
+  /* делаем подпись управляемой классом .tapped */
+  .military-gallery .mil-combat-text {
+    transition: opacity .2s ease, transform .2s ease;
+    opacity: 0; transform: translateY(6px);
+  }
+  .military-gallery .mil-card.tapped .mil-combat-text {
+    opacity: 1; transform: none;
+  }
+
+  /* курсор и мелкие UX-штрихи */
+  .military-gallery .mil-card { cursor: pointer; }
+}
+
+.mil-lightbox { position: fixed; inset: 0; display: none; place-items: center;
+  background: rgba(13,18,7,.9); backdrop-filter: blur(6px); z-index: 9999; }
+.mil-lightbox.open { display: grid; }
+.mil-track { transition: transform .35s ease; } /* если используете слайдер-трек */
+html.modal-open, body.modal-open { overflow: hidden; }
+
+

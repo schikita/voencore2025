@@ -7,9 +7,9 @@
   <title>Военкор‑2025 — репортаж Никиты Сафиуллина | СБ Беларусь сегодня</title>
   <meta name="description"
     content="Лендинг‑страница репортажа «Военкор‑2025» от лица журналиста СБ Беларусь сегодня — Никиты Сафиуллина: ключевые факты, фото, видео, хронология." />
-  <link rel="preload" href="./assets/fonts/TikTokSans[opsz,slnt,wdth,wght].ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="./assets/css/fonts.css" />
-  <link rel="stylesheet" href="./assets/css/carousel.css" />
+  <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.ico">
+  <link rel="stylesheet" href="./assets/css/fonts.css">
+  <link rel="stylesheet" href="./assets/css/carousel.patched.css" />
   <link rel="stylesheet" href="./assets/css/horizontal-timeline.css" />
   <link rel="stylesheet" href="./assets/css/quotes.css" />
   <link rel="stylesheet" href="./assets/css/footer.css" />
@@ -21,72 +21,160 @@
   <link rel="stylesheet" href="./assets/css/begin-text-block.css">
   <link rel="stylesheet" href="./assets/css/day-2.css">
   <link rel="stylesheet" href="./assets/css/styles.css" />
-  <link rel="stylesheet" href="/assets/css/masonry.css">
+  <link rel="stylesheet" href="./assets/css/masonry.css">
+  <link rel="stylesheet" href="./assets/css/photo-day-2.css">
+  <link rel="stylesheet" href="./assets/css/day-3.css">
+  <link rel="stylesheet" href="./assets/css/day-4.css">
+  <link rel="stylesheet" href="./assets/css/contacts.css">
+  <style>
+    
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: grid;
+      place-items: center;
+      background: #000;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1.2s ease, visibility 1.2s linear;
+    }
+
+    #splash img {
+      max-width: min(70vw, 420px);
+      width: auto;
+      height: auto;
+      opacity: 1;
+      transform: none;
+      transition: opacity 1.2s ease;
+    }
+
+    html.splash-lock,
+    body.splash-lock {
+      overflow: hidden !important;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #splash.hide img {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      #splash {
+        transition: none !important;
+      }
+
+      #splash img {
+        transition: none !important;
+      }
+    }
+
+    #global-mil-lightbox { display: none !important; }
+  </style>
+  <script>
+    document.documentElement.classList.add('splash-lock');
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash');
+        splash.classList.add('hide'); // плавное исчезновение
+        document.documentElement.classList.remove('splash-lock');
+      }, 3000);
+    });
+
+
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KRVNNK');
+
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+      m[i].l = 1 * new Date();
+      for (var j = 0; j < e.scripts.length; j++) { if (e.scripts[j].src === r) return; } k = e.createElement(t),
+        a = e.getElementsByTagName(t)[0]; k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+    })(window, document, 'script'
+      , 'https://mc.yandex.ru/metrika/tag.js', 'ym'); ym(16707172, 'init', {
+        webvisor: true, clickmap: true,
+        accurateTrackBounce: true, trackLinks: true
+      }); </script>
+  <noscript>
+    <div>
+      <img src="https://mc.yandex.ru/watch/16707172" style="position:absolute; left:-9999px;" alt="">
+    </div>
+  </noscript>
+
 
 </head>
 
 <body>
-  <!-- Навбар -->
+  <div id="splash" aria-hidden="true">
+    <img src="./assets/img/brand/splash.png" alt="" width="320" height="160" decoding="async" fetchpriority="high" />
+  </div>
+
   <div class="progress" aria-hidden="true"></div>
   <nav class="navbar" role="navigation" aria-label="Основная навигация">
     <div class="inner container">
       <a href="https://www.sb.by/" class="logo" target="_blank" rel="noopener noreferrer">
-        <img src="assets/img/logo.png" alt="СБ. Беларусь сегодня — логотип" width="36" height="36">
+        <img src="./assets/img/logo.png" alt="СБ. Беларусь сегодня — логотип" width="36" height="36">
         <span class="logo-text">SB.BY</span>
       </a>
       <button class="burger" id="nav-burger" aria-label="Меню" aria-controls="nav-menu" aria-expanded="false"><span
           class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span></button>
       <div class="tabs" id="nav-menu">
-        <a href="#overview">Обзор</a>
-        <a href="#materials">Материалы</a>
-        <a href="#gallery">Галерея</a>
-        <a href="#timeline">Хронология</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#vcx-hero-day1">День 1</a>
+        <a href="#vcx-day2">День 2</a>
+        <a href="#day-3">День 3</a>
+        <a href="#day-4">День 4</a>
+        <a class="final_navlink" href="#day4-why">Почему это важно?</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero -->
   <header class="hero">
-    <!-- Фоновые слайды -->
     <div class="hero-bg" aria-hidden="true">
-      <div class="bg-slide active" style="background-image:url('assets/img/day1/slide-1.png')"></div>
-      <div class="bg-slide" style="background-image:url('assets/img/day1/slide-2.png')"></div>
-      <div class="bg-slide" style="background-image:url('assets/img/day1/slide-3.png')"></div>
-      <div class="bg-slide" style="background-image:url('assets/img/day1/slide-4.png')"></div>
+      <div class="bg-slide active" style="background-image:url('./assets/img/day1/slide-1.avif')"></div>
+      <div class="bg-slide" style="background-image:url('./assets/img/day1/slide-2.avif')"></div>
+      <div class="bg-slide" style="background-image:url('./assets/img/day1/slide-3.avif')"></div>
+      <div class="bg-slide" style="background-image:url('./assets/img/day1/slide-4.avif')"></div>
     </div>
 
-    <!-- Контент слева -->
     <div class="hero-content">
       <div class="badges">
-        <span class="badge">Репортаж</span>
-        <span class="badge">Военкор-2025</span>
-        <span class="badge">СБ Беларусь сегодня</span>
+        <span class="badge reveal">Репортаж</span>
+        <span class="badge reveal">Военкор-2025</span>
+        <span class="badge reveal">СБ Беларусь сегодня</span>
       </div>
-      <h1 class="title">«Военкор-2025» — глазами журналиста</h1>
-      <p class="lead">
+      <h1 class="title reveal">«Военкор-2025» — глазами журналиста</h1>
+      <p class="lead reveal">
         Меня зовут <span class="name_author">
-          <a href="https://www.sb.by/author/1782589-valeriya-kurnevich-20240704/" target="_blank"
+          <a href="https://www.sb.by/author/1660762-nikita-safiullin-20240116/" target="_blank"
             rel="noopener noreferrer">
             Никита Сафиуллин
           </a>
         </span>. На этой странице — короткий и наглядный пересказ главного: что
         увидел, кого встретил и почему это важно.
       </p>
-      <div class="hero-cta">
+      <div class="hero-cta reveal">
         <a class="button" href="#overview">Читать обзор</a>
-        <a class="button ghost" href="#gallery" aria-label="Перейти к фотогалерее">Смотреть фото</a>
+        <a class="button ghost" href="#contacts" aria-label="Перейти к фотогалерее">Контакты</a>
       </div>
     </div>
   </header>
 
-
-  <!-- Обзор -->
   <section id="overview" class="section overview">
     <div class="container overview-grid">
-      <!-- ЛЕВАЯ КОЛОНКА -->
+
       <div class="overview-text">
-        <h2 class="h2">Прямо сейчас</h2>
+        <h2 class="h2 reveal">Начало</h2>
         <p> Я выезжаю вместе с коллегами в одно из соединений сил специальных операций на тактико-специальное учение
           «Военкор-2025». В ближайшие дни буду работать в поле: наблюдать, спрашивать, фиксировать детали — от связи и
           ориентирования до эвакуации «раненых». Задача простая: показать, как на практике обучают экстремальной
@@ -96,16 +184,16 @@
 
       </div>
 
-      <div class="bear-desk-photos" aria-label="Фотографии на столе">
-        <figure class="desk-photo p1" data-full="assets/img/day1/begin-1.jpg"><img src="assets/img/day1/begin-1.jpg"
+      <div class="bear-desk-photos" aria-label="Фотографии на столе" data-no-lightbox>
+        <figure class="desk-photo p1" data-full="./assets/img/day1/begin-1.jpg"><img src="./assets/img/day1/begin-1.jpg"
             alt="">
           <figcaption>Инструктаж</figcaption>
         </figure>
-        <figure class="desk-photo p2" data-full="assets/img/day1/begin-2.jpg"><img src="assets/img/day1/begin-2.jpg"
+        <figure class="desk-photo p2" data-full="./assets/img/day1/begin-2.jpg"><img src="./assets/img/day1/begin-2.jpg"
             alt="">
           <figcaption>По местам</figcaption>
         </figure>
-        <figure class="desk-photo p3" data-full="assets/img/day1/begin-3.jpg"><img src="assets/img/day1/begin-3.jpg"
+        <figure class="desk-photo p3" data-full="./assets/img/day1/begin-3.jpg"><img src="./assets/img/day1/begin-3.jpg"
             alt="">
           <figcaption>Взлет</figcaption>
         </figure>
@@ -113,307 +201,726 @@
     </div>
   </section>
 
-  <!-- Модалка должна быть ОДНА на всю страницу -->
-  <div class="bear-modal" id="bearModal" hidden aria-modal="true" role="dialog">
-    <button class="bear-modal-close" aria-label="Закрыть">×</button>
-    <figure class="bear-modal-frame">
-      <img id="bearModalImg" alt="">
-      <figcaption id="bearModalCap"></figcaption>
-    </figure>
-  </div>
 
-
-
-  <section id="day1" class="day day--hero" aria-labelledby="day1-title">
-    <!-- Фоновое видео + параллакс -->
-    <div class="day-bg" aria-hidden="true">
-      <video class="day-bg__video" src="/assets/img/day1/istruction.mp4" autoplay muted loop playsinline></video>
-      <div class="day-bg__gradient"></div>
-      <div class="day-bg__noise"></div>
+  <section id="vcx-hero-day1" class="vcx-hero" aria-labelledby="vcx-hero-title">
+    <div class="vcx-hero__bg" aria-hidden="true">
+      <video class="vcx-hero__video" autoplay muted loop playsinline preload="metadata">
+        <source src="./assets/img/day1/begin-video.mp4" type="video/mp4">
+      </video>
+      <div class="vcx-hero__overlay"></div>
+      <div class="vcx-hero__grain"></div>
+      <div class="vcx-hero__scan"></div>
     </div>
 
-    <div class="container day-wrap">
-      <header class="day-head reveal">
-        <h2 id="day1-title" class="day-title" data-split="День 1. Старт «Военкор-2025»">
-          День 1. Старт «Военкор-2025»
-        </h2>
-        <p class="day-lead">
-          Я приехал в лагерь к рассвету. В строю — <strong>26 журналистов</strong>, впереди — пять дней жизни по
-          армейскому распорядку.
-          Сегодня знакомимся с площадками: безопасность, медицина, связь, ориентирование. Темп высокий — как в
-          подразделениях.
-        </p>
-        <p class="day-lead day-lead--muted">
-          Тактико-специальному учению «Военкор-2025» дан старт. Как проходит первый активный день и что ждёт СМИ дальше?
+    <div class="vcx-hero__container">
+      <header class="vcx-hero__head">
+        <span class="day__tag reveal">ДЕНЬ 1</span>
+        <h2 id="vcx-hero-title" class="vcx-hero__title">Высадка с вертолёта и армейский распорядок</h2>
+        <p class="vcx-hero__lead">
+          С первых же секунд военные обозначили серьёзный подход к учениям: к месту проведения нас доставили на двух
+          вертолётах.
+          Как только ноги почувствовали землю, мы не смогли расслабиться даже на пару секунд. Внезапно — стрельба, крики
+          и
+          почти молниеносная посадка в бронированную машину…
         </p>
       </header>
 
-      <div class="day-grid">
-        <article class="day-copy reveal" aria-label="Задачи дня">
-          <h3 class="h4">Что делали сегодня</h3>
-          <ul class="check">
-            <li>Развёрнули палаточный лагерь, получили снаряжение, прошли инструктаж по безопасности.</li>
-            <li>Отработка связи: рации, позывные, короткие переговоры под нагрузкой.</li>
-            <li>Тактическая медицина: жгут, давящая повязка, перенос и эвакуация «раненого».</li>
-            <li>Топография и ориентирование: азимут, работа с картой и компасом.</li>
-          </ul>
-
-          <h3 class="h4">Что будет дальше</h3>
-          <p>
-            Основной упор — навыки работы в зоне вооружённого конфликта: огневая, рукопашный бой и самооборона,
-            основы топографии и связи, медицинская и инженерная подготовка, психологическая устойчивость.
-            Обучают <strong>инструкторы сил специальных операций</strong>.
+      <section class="vcx-hero__grid">
+        <div class="vcx-hero__card">
+          <h3 id="day1-fact1" class="vcx-hero__h4">Полевой лагерь</h3>
+          <p class="fact__text">
+            Машина (по ощущениям, на максимальной скорости) довезла нас до лагеря, где мы провели следующие пять дней.
+            Короткий, но ёмкий инструктаж по технике безопасности — и нас поделили на группы.
+            Военнослужащие с позывными <strong>Физрук</strong>, <strong>Педагог</strong> и <strong>Прайс</strong>
+            стали проводниками в армейскую жизнь.
           </p>
-        </article>
+        </div>
+        <div>
+          <img class="img_shilov" src="./assets/img/day1/kemping.jpg" alt="Полевой лагерь" loading="lazy">
+        </div>
+      </section>
 
+      <section class="vcx-hero__grid">
+        <div>
+          <img class="img_shilov" src="./assets/img/day1/nakolennik.jpg" alt="Казус с наколенниками" loading="lazy">
+        </div>
+        <div class="vcx-hero__card">
+          <h3 id="day1-fact1" class="vcx-hero__h4">Казус с наколенниками</h3>
+
+          <p class="fact__text">
+            Разместились в палатке, строем сходили в столовую, получили экипировку — всё как у срочников.
+            Но обмундирование оказалось неполным — не хватило наколенников.
+            Пришлось обращаться к Физруку за решением проблемы.
+            Так появился мой позывной <strong>«Гудок»</strong>.
+            А фотографа Кирилла назвали <strong>«Лешим»</strong> — за густые волосы.
+          </p>
+        </div>
+      </section>
+
+
+      <!-- Задачи -->
+      <section class="tasks" aria-labelledby="day1-tasks">
+        <h3 id="day1-tasks" class="tasks__title">ЗАДАЧИ ПЕРВОГО ДНЯ</h3>
+        <ul class="tasks__list">
+          <li class="tasks__item">Прибытие на место</li>
+          <li class="tasks__item">Получение экипировки</li>
+          <li class="tasks__item">Ознакомление с техникой безопасности</li>
+        </ul>
+      </section>
+
+    </div>
+  </section>
+
+  <section class="military-gallery" aria-labelledby="mil-title">
+    <div class="mil-container">
+      <h2 id="mil-title" class="mil-title reveal">События первого дня</h2>
+
+      <div class="mil-columns" role="list">
+        <figure class="mil-card reveal" role="listitem">
+          <img class="mil-img" src="./assets/img/day1/day1-01.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Доведение замысла</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 1" data-full="./assets/img/day1/day1-01.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day1/day1-02.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Напутствие генерала</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 2" data-full="./assets/img/day1/day1-02.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day1/day1-03.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Поднятие флага</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 3" data-full="./assets/img/day1/day1-03.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day1/day1-04.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Огневая подготовка</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 4" data-full="./assets/img/day1/day1-04.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day1/day1-05.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Специальная<br>подготовка</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 5" data-full="./assets/img/day1/day1-05.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day1/day1-06.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Освоение<br>военных дисциплин</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 6" data-full="./assets/img/day1/day1-06.jpg"></button>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Отдельная секция с мозаикой -->
-  <!-- ===== Masonry Gallery (6 фото) ===== -->
-  <section class="masonry-gallery" aria-labelledby="mg-title">
-    <div class="mg-container">
-      <h2 id="mg-title" class="mg-title">События первого дня</h2>
 
-      <div class="mg-columns" role="list">
-        <!-- Карточка -->
-        <figure class="mg-card reveal" role="listitem">
-          <img class="mg-img" src="/assets/img/day1/day1-01.jpg" alt="События первого дня" loading="lazy" />
-          <figcaption class="mg-cap"></figcaption>
-          <button class="mg-open" aria-label="Открыть фото 1" data-full="/assets/img/day1/day1-01.jpg"></button>
-        </figure>
+  <section class="vcx-day" id="vcx-day2" aria-labelledby="vcx-day2-title">
+    <video class="vcx-day__bg-video" autoplay muted loop playsinline preload="auto">
+      <source src="./assets/img/day1/day-2.mp4" type="video/mp4">
+    </video>
+    <div class="vcx-day__bg-overlay"></div>
+    <div class="container pt-5">
+      <span class="day__tag pt-5 reveal">ДЕНЬ 2</span>
 
-        <figure class="mg-card reveal">
-          <img class="mg-img" src="/assets/img/day1/day1-02.jpg" alt="События первого дня" loading="lazy" />
-          <figcaption class="mg-cap"></figcaption>
-          <button class="mg-open" aria-label="Открыть фото 2" data-full="/assets/img/day1/day1-02.jpg"></button>
-        </figure>
+      <h2 id="vcx-hero-title" class="vcx-hero__title">«Птичка! Вытек!»</h2>
+      <p class="vcx-day__lead">
+        Второй день начался с неожиданного визита.
+        <b>Спецгость</b> — корреспондент РИА «Новости» <strong>Сергей Шилов</strong>, много лет проработавший в Сирии
+        (штурм Алеппо, битва за Дамаск) и сейчас освещающий СВО.
+      </p>
 
-        <figure class="mg-card reveal">
-          <img class="mg-img" src="/assets/img/day1/day1-03.jpg" alt="События первого дня" loading="lazy" />
-          <figcaption class="mg-cap"></figcaption>
-          <button class="mg-open" aria-label="Открыть фото 3" data-full="/assets/img/day1/day1-03.jpg"></button>
-        </figure>
-
-        <figure class="mg-card reveal">
-          <img class="mg-img" src="/assets/img/day1/day1-04.jpg" alt="События первого дня" loading="lazy" />
-          <figcaption class="mg-cap"></figcaption>
-          <button class="mg-open" aria-label="Открыть фото 4" data-full="/assets/img/day1/day1-04.jpg"></button>
-        </figure>
-
-        <figure class="mg-card reveal">
-          <img class="mg-img" src="/assets/img/day1/day1-05.jpg" alt="События первого дня" loading="lazy" />
-          <figcaption class="mg-cap"></figcaption>
-          <button class="mg-open" aria-label="Открыть фото 5" data-full="/assets/img/day1/day1-05.jpg"></button>
-        </figure>
-
-        <figure class="mg-card reveal">
-          <img class="mg-img" src="/assets/img/day1/day1-06.jpg" alt="События первого дня" loading="lazy" />
-          <figcaption class="mg-cap"></figcaption>
-          <button class="mg-open" aria-label="Открыть фото 6" data-full="/assets/img/day1/day1-06.jpg"></button>
-        </figure>
+      <!-- Цитата сбоку -->
+      <div class="quote_grid">
+        <div class="quote_content">
+          <blockquote class="war_quote">
+            <p>Любая подготовка может спасти вам жизнь. К сожалению, журналист на войне перестал быть неприкосновенным,
+              защищённым международным правом. Сейчас нашивка <em>Press</em> превращает человека в приоритетную мишень,
+            </p>
+            <footer>— Сергей Шилов</footer>
+          </blockquote>
+        </div>
+        <div class="quote_image">
+          <img class="img_shilov" src="./assets/img/day2/Shilov.png" alt="Военкор Сергей Шилов в зоне боевых действий"
+            loading="lazy">
+        </div>
       </div>
-    </div>
 
-    <!-- Лайтбокс -->
-    <div class="mg-lightbox" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
-      <button class="mg-close" aria-label="Закрыть">&times;</button>
-      <button class="mg-prev" aria-label="Предыдущее">&#10094;</button>
-      <img class="mg-full" alt="" />
-      <button class="mg-next" aria-label="Следующее">&#10095;</button>
+      </aside>
+
+      <section>
+        <p>
+          Далее - тактическая медицина и правильная реакция на обнаружение вражеским дроном.
+        </p>
+      </section>
+
+      <section class="" aria-labelledby="day2-fact1">
+        <div class="" aria-hidden="true"></div>
+        <p class="fact__text">
+          Что по наложению жгутов? Звучит легко, но нюансов хватает. При перебитой артерии, как говорят инструкторы,
+          «три минуты — и ты вытек», то есть погиб.
+          Задача остановить кровь не из простых, мы справились на "троечку".
+        </p>
+      </section>
+
+      <section class="" aria-labelledby="day2-fact2">
+        <div class="" aria-hidden="true"></div>
+        <p class="fact__text">
+          Переходим к правильному реагированию на обнаружение дроном. Главное — держать ухо востро круглые сутки.
+          Сигнал «Птичка!» — и группа обязана мгновенно разбежаться, укрыться в лесополосе и лечь.
+          В поле шансов на спасение почти нет.
+        </p>
+      </section>
+      <section class="vcx-hero__grid" aria-labelledby="day2-gear">
+        <div class="vcx-hero__card">
+          <h3 id="day2-gear" class="vcx-hero__h4">Тяжесть экипировки</h3>
+          <p class="fact__text">
+            Выполнение заданий осложнялось тяжестью снаряжения: бронежилет 4-го класса защиты — 20 кг,
+            шлем — 1,5 кг, рюкзак — 5 кг.
+          </p>
+        </div>
+        <div>
+          <img class="img_gear" src="./assets/img/day2/bronik.jpg" alt="Экипировка: бронежилет, шлем и рюкзак"
+            loading="lazy">
+        </div>
+      </section>
+      <section class="tasks" aria-labelledby="day2-tasks">
+        <h3 id="day2-tasks" class="tasks__title">ЗАДАЧИ ВТОРОГО ДНЯ</h3>
+        <ul class="tasks__list">
+          <li class="tasks__item">Встреча с военкором Сергеем Шиловым</li>
+          <li class="tasks__item">Научиться работать при атаке дронами</li>
+          <li class="tasks__item">Освоить наложение жгута</li>
+          <li class="tasks__item">Изучение водолазной подготовки</li>
+        </ul>
+      </section>
     </div>
   </section>
 
 
+  <section class="military-gallery" aria-labelledby="mil-title">
+    <div class="mil-container">
+      <h2 id="mil-title" class="mil-title reveal">Подготовка военкоров - день 2</h2>
+
+      <div class="mil-columns" role="list">
+        <figure class="mil-card reveal" role="listitem">
+          <img class="mil-img" src="./assets/img/day2/day-2-01.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Цель подготовки -<br> не стать мишенью</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 1" data-full="/assets/img/day2/day-2-01.png"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day2/day-2-02.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Водолазная<br>подготовка</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 2" data-full="/assets/img/day2/day-2-02.png"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day2/day-2-03.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Подготовка<br>сняряжения</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 3" data-full="/assets/img/day2/day-2-03.png"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day2/day-2-04.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Бронежилет -<br>друг военкора</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 4" data-full="/assets/img/day2/day-2-04.png"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day2/day-2-05.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Медицинская<br>подготовка</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 5" data-full="/assets/img/day2/day-2-05.png"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day2/day-2-06.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Тяжело в учении<br>легко в бою</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 6" data-full="/assets/img/day2/day-2-06.png"></button>
+        </figure>
+      </div>
+    </div>
+
+    <div class="mil-lightbox" aria-hidden="true">
+      <img class="mil-full" alt="Увеличенное фото" />
+      <button class="mil-close" aria-label="Закрыть">✕</button>
+      <button class="mil-prev" aria-label="Предыдущее">‹</button>
+      <button class="mil-next" aria-label="Следующее">›</button>
+    </div>
+  </section>
 
 
-<section class="day" id="vcx-day2" aria-labelledby="vcx-day2-title">
-        <!-- Hero background with video -->
-        <div class="day-bg" aria-hidden="true">
-            <video class="day-bg__video" autoplay muted loop playsinline preload="auto">
-                <source src="/assets/img/day1/day-2.mp4" type="video/mp4">
-            </video>
-            <div class="day-bg__gradient"></div>
-            <div class="day-bg__noise"></div>
+  <section id="day-3" class="day day--military" aria-labelledby="day3-title">
+    <video class="day__bg-video" autoplay muted loop playsinline preload="metadata">
+      <source src="./assets/img/day3/day-3.mp4" type="video/mp4">
+    </video>
+    <div class="day__bg-overlay" aria-hidden="true"></div>
+
+    <div class="container">
+      <span class="day__tag reveal">ДЕНЬ 3</span>
+      <h2 id="day3-title" class="day__title reveal">Самый жёсткий день: огневая и психологическая полоса</h2>
+      <section class="vcx-hero__grid" aria-labelledby="day3-btr">
+        <div class="vcx-hero__card">
+          <p class="day__lead reveal">
+            Задачи следующего дня многие ребята назвали самыми невыносимыми. Инструкторы создали три зоны, где
+            отрабатывались отдельные элементы: стрельба из пулемётов и автоматов, а также правила изготовки для
+            стрельбы из различных положений. Патронов для бойцов информационного фронта не жалели: каждый сделал
+            минимум 80 выстрелов, а некоторым счастливчикам позволили поупражняться с гранатомётом и снайперской
+            винтовкой.
+          </p>
+          <br>
+          <h3 id="day3-btr" class="vcx-hero__h4">БТР, который «подбили»</h3>
+          <p class="fact__text">
+            Но самый хардкор начался после стрельб: нас неожиданно погрузили в бронетранспортёр, который впоследствии…
+            подбили.
+          </p>
         </div>
 
-        <div class="container">
-            <header class="day-head">
-                <h2 id="vcx-day2-title" class="day-title">День 2. «Птичка! Вытек!»</h2>
-                <p class="day-lead">Такмед и реакция на дрон. Гость — военкор Сергей Шилов. Практика — от жгута до эвакуации.</p>
-            </header>
+        <div>
+          <img class="img_btr" src="./assets/favicon/favicon.png" alt="Эвакуация в БТР на полигоне" loading="lazy">
+        </div>
+      </section>
 
-            <!-- Slider -->
-            <div class="day2-slider" aria-roledescription="carousel" aria-label="День 2 — заметки" tabindex="0">
-                <div class="day2-track">
-                    <div class="day2-progress"></div>
-                    
-                    <!-- slide 1 -->
-                    <article class="day2-card active" role="group" aria-roledescription="slide" aria-label="1 из 7">
-                        <p><strong>Птичка! Вытек!</strong> На второй день мы узнали основные направления обучения — тактическая медицина и правильная реакция на обнаружение вражеским дроном. Спецгость — корреспондент РИА «Новости» Сергей Шилов: много лет в Сирии, сейчас СВО.</p>
-                        <p>По его словам, зона боевых действий — это «чистородный хаос, в котором может происходить всё, что угодно».</p>
-                    </article>
+      <section class="stress" aria-labelledby="day3-stress">
+        <h3 id="day3-stress" class="stress__title">Эвакуация и такмед под огнём</h3>
+        <div class="stress__grid">
+          <div class="stress__content">
+            <p>
+              Задача — быстро покинуть машину, зажгутовать конечность и проползти 20&nbsp;метров к укрытию. Всё это —
+              под аккомпанемент дымовых шашек, выстрелов над головой и настойчивых призывов инструкторов:
+            </p>
+            <blockquote class="stress__quote">
+              «На минуту остановишься — ты труп! Никто, кроме тебя самого, тебе не поможет!»
+            </blockquote>
+          </div>
 
-                    <!-- slide 2 -->
-                    <article class="day2-card" role="group" aria-roledescription="slide" aria-label="2 из 7">
-                        <p>— Любая подготовка может спасти вам жизнь. К сожалению, журналист на войне перестал быть неприкосновенным. Нашивка <em>Press</em> — это приоритетная мишень. Если военкор хочет вернуться домой живым, подготовка должна быть серьёзной.</p>
-                    </article>
 
-                    <!-- slide 3 -->
-                    <article class="day2-card" role="group" aria-roledescription="slide" aria-label="3 из 7">
-                        <p>Начали с азов — наложения жгута. Звучит легко, но нюансов хватает: при перебитой артерии «три минуты — и ты вытек». Десять попыток — и всё равно до идеала не дотянули: от Физрука — уверенная «тройка».</p>
-                    </article>
+          <figure class="stress__media">
+            <video class="stress__video" controls preload="metadata">
+              <source src="./assets/img/day3/army.mp4" type="video/mp4">
+              Ваш браузер не поддерживает видео.
+            </video>
+            <figcaption>Эвакуация из БТР и перемещение к укрытию</figcaption>
+          </figure>
+        </div>
+      </section>
 
-                    <!-- slide 4 -->
-                    <article class="day2-card" role="group" aria-roledescription="slide" aria-label="4 из 7">
-                        <p>Реакция на дрон: держать ухо востро 24/7 — коптер можно услышать. Сигнал «Птичка!» — и за 5 секунд каждый должен лечь в укрытие, лучше в лесополосу. Открытое поле = почти нулевые шансы.</p>
-                    </article>
+      <section class="drills" aria-labelledby="day3-drills">
+        <h3 id="day3-drills" class="drills__title">Отработка по зонам</h3>
+        <div class="drills__grid">
+          <article class="drill">
+            <h4 class="drill__title">Зона 1 — огневая</h4>
+            <ul class="drill__list zone">
+              <li>Стрельба из пулемётов и автоматов</li>
+              <li>Минимум 80 выстрелов на человека</li>
+              <li>Контроль дыхания, стойка, спуск</li>
+            </ul>
+          </article>
+          <article class="drill">
+            <h4 class="drill__title">Зона 2 — изготовка</h4>
+            <ul class="drill__list  zone">
+              <li>Положения: стоя, с колена, лёжа</li>
+              <li>Смена позиции и сектора</li>
+              <li>Работа с укрытиями</li>
+            </ul>
+          </article>
+          <article class="drill">
+            <h4 class="drill__title">Зона 3 — спец</h4>
+            <ul class="drill__list zone">
+              <li>Гранатомёт и снайперская винтовка (для части группы)</li>
+              <li>Командная коммуникация</li>
+              <li>Безопасность и ТБ</li>
+            </ul>
+          </article>
+        </div>
+      </section>
 
-                    <!-- slide 5 -->
-                    <article class="day2-card" role="group" aria-roledescription="slide" aria-label="5 из 7">
-                        <p>Сложнее всё в экипировке: бронежилет 4 класса ~20 кг, шлем ~1,5 кг, рюкзак ~5 кг. Шесть часов подряд — и спина говорит «до свидания». Но <strong>Руслан Дергель</strong> (позывной Борода) бодрит команду: палатки не пугают, к трудностям готов.</p>
-                        <p>— Мы постоянно в движении, нагрузки серьёзные, «птички» и гранаты держат в тонусе. Самое тяжёлое — такмед. Но станет лучше.</p>
-                    </article>
+      <!-- Задачи -->
+      <section class="tasks" aria-labelledby="day3-tasks">
+        <h3 id="day3-tasks" class="tasks__title reveal">ЗАДАЧИ ТРЕТЬЕГО ДНЯ</h3>
+        <ul class="tasks__list">
+          <li class="tasks__item reveal">Обучение стрельбе</li>
+          <li class="tasks__item reveal">Прохождение психологической полосы</li>
+        </ul>
+      </section>
+    </div>
 
-                    <!-- slide 6 -->
-                    <article class="day2-card" role="group" aria-roledescription="slide" aria-label="6 из 7">
-                        <h3 class="day2-sub">Ползи к стене!</h3>
-                        <p>Зарядка → стрельба: пулемёты, автоматы, изготовка. Патронов не жалели — 80+ на человека, кому-то достался гранатомёт и «снайперка».</p>
-                        <p>Потом — БТР. Его «подбили»: быстро покинуть, зажгутовать, ползти 20 м к укрытию под дымами и выстрелами. «Остановишься — ты труп!»</p>
-                    </article>
+    <noscript>
+      <style>
+        #day-3 {
+          background: #0b1411 url('./assets/img/day3/day-3-poster.jpg') center/cover no-repeat;
+        }
+      </style>
+    </noscript>
+  </section>
 
-                    <!-- slide 7 -->
-                    <article class="day2-card" role="group" aria-roledescription="slide" aria-label="7 из 7">
-                        <p>— Со стороны 20 м — ерунда. Но шлем сползает, бронежилет давит, рядом стреляют — дезориентация. Заполз в кусты — «трёхсотый», потом эвакуировали. Хорошо, что все поддерживают, — делится <strong>Алексей Сосновский</strong> (Линза).</p>
-                        <p><strong>Итог:</strong> «красные» в целом справились, прогресс есть. После — топография, лес, «дневка» и ночлег. Дальше — марш-бросок и ночёвка в лесу…</p>
-                    </article>
+
+  <section class="military-gallery" aria-labelledby="mil-title">
+    <div class="mil-container">
+      <h2 id="mil-title" class="mil-title reveal">Жесткие испытания - день 3</h2>
+
+      <div class="mil-columns" role="list">
+        <figure class="mil-card reveal" role="listitem">
+          <img class="mil-img" src="./assets/img/day3/day3-01.png" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">На огневом<br> рубеже</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 1" data-full="./assets/img/day3/day3-01.png"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day3/day3-02.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Испытание<br>огнем</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 2" data-full="./assets/img/day3/day3-02.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day3/day3-03.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Профессиональная<br>подготовка</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 3" data-full="./assets/img/day3/day3-03.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day3/day3-04.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Инструктаж<br>перед стрельлбами</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 4" data-full="./assets/img/day3/day3-04.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day3/day3-05.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Топографическая<br>подготовка</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 5" data-full="./assets/img/day3/day3-05.jpg"></button>
+        </figure>
+
+        <figure class="mil-card reveal">
+          <img class="mil-img" src="./assets/img/day3/day3-06.jpg" alt="Военкор-2025" loading="lazy" />
+          <div class="mil-combat-text">Каждый патрон<br>на счету</div>
+          <figcaption class="mil-cap"></figcaption>
+          <button class="mil-open" aria-label="Открыть фото 6" data-full="./assets/img/day3/day3-06.jpg"></button>
+        </figure>
+      </div>
+    </div>
+
+    <section id="day-4" class="day day--military" aria-labelledby="day4-title">
+      <video class="day__bg-video" autoplay muted loop playsinline preload="metadata">
+        <source src="./assets/img/day4/background-video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+      </video>
+      <div class="day__bg-overlay" aria-hidden="true"></div>
+
+      <div class="container">
+        <header class="day__header">
+          <span class="day__tag">ДЕНЬ 4</span>
+          <h2 id="day4-title" class="day__title">Топография, лес и навыки выживания</h2>
+          <p class="day__lead">
+            После обеда для нас провели занятие по военной топографии, а затем отправили в лес осваивать навыки на
+            практике. Попутно обучили разведению костра, возведению «дневки» и организации ночлега с охранением.
+            Всё было подготовкой к очередному дню, где нам предстояло самостоятельно совершить марш-бросок на несколько
+            километров и переночевать в лесу…
+          </p>
+        </header>
+
+        <section class="campfire" aria-labelledby="day4-campfire">
+          <h3 id="day4-campfire" class="campfire__title">Посиделки у костра</h3>
+          <div class="campfire__grid">
+            <div class="campfire__content">
+              <p>
+                Хоть это и сложно, в посиделках у костра была своя, особая романтика. Интересные истории от военных и
+                корреспондентов, личные воспоминания и рабочие лайфхаки. Короче, можете послушать сами.
+              </p>
+              <div class="mil-audio" data-src="./assets/audio/day4-campfire.mp3">
+                <div class="mil-audio__panel">
+                  <button class="mil-audio__btn" aria-label="Воспроизвести" data-state="play">
+                    <svg viewBox="0 0 24 24" class="mil-ic" aria-hidden="true">
+                      <path d="M7 5v14l12-7z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" class="mil-ic is-pause" aria-hidden="true">
+                      <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                    </svg>
+                  </button>
+
+                  <div class="mil-audio__progress" role="slider" tabindex="0" aria-label="Позиция" aria-valuemin="0"
+                    aria-valuemax="100" aria-valuenow="0">
+                    <div class="mil-audio__progress-track"></div>
+                    <div class="mil-audio__progress-fill"></div>
+                    <div class="mil-audio__progress-head" aria-hidden="true"></div>
+                    <div class="mil-audio__stitches" aria-hidden="true"></div>
+                  </div>
+
+                  <div class="mil-audio__time">
+                    <span class="mil-audio__cur">0:00</span>
+                    <span class="mil-audio__sep">/</span>
+                    <span class="mil-audio__dur">0:00</span>
+                  </div>
+
+                  <button class="mil-audio__mute" aria-label="Выключить звук" data-muted="false">
+                    <svg viewBox="0 0 24 24" class="mil-ic" aria-hidden="true">
+                      <path d="M5 10v4h4l5 5V5L9 10H5z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" class="mil-ic is-muted" aria-hidden="true">
+                      <path d="M5 10v4h4l5 5V5L9 10H5zM19 5l-3.5 3.5M15.5 12.5L19 16" />
+                    </svg>
+                  </button>
+
+                  <input class="mil-audio__volume" type="range" min="0" max="1" step="0.01" value="0.9"
+                    aria-label="Громкость">
                 </div>
 
-                <!-- Navigation -->
-                <nav class="day2-nav">
-                    <button class="day2-btn day2-prev" aria-label="Предыдущий слайд" title="Назад"></button>
-                    <div class="day2-dots" role="tablist" aria-label="Навигация по слайдам"></div>
-                    <button class="day2-btn day2-next" aria-label="Следующий слайд" title="Вперёд"></button>
-                </nav>
+                <audio class="mil-audio__el" preload="metadata">
+                  <source src="./assets/img/day4/sound-koster.mp3" type="audio/mpeg">
+                </audio>
+              </div>
             </div>
-        </div>
+          </div>
+        </section>
+
+        <section class="tasks" aria-labelledby="day4-tasks">
+          <h3 id="day4-tasks" class="tasks__title">ЗАДАЧИ ЧЕТВЁРТОГО ДНЯ</h3>
+          <ul class="tasks__list">
+            <li class="tasks__item">Научиться готовить репортажи в экстремальных условиях</li>
+            <li class="tasks__item">10-километровый марш-бросок</li>
+            <li class="tasks__item">Обучение навыкам выживания в лесу</li>
+          </ul>
+        </section>
+      </div>
     </section>
 
-  <section id="vcx-day3" class="vcx-day2 reveal" aria-labelledby="vcx-day3-title">
-    <div class="vcx-day2-bg" aria-hidden="true">
-      <div class="vcx-day2-gradient"></div>
-      <div class="vcx-day2-noise"></div>
-    </div>
-    <div class="vcx-container vcx-day2-wrap">
-      <header class="vcx-day2-header">
-        <h2 id="vcx-day3-title">День 3</h2>
-        <p class="vcx-day2-lead">Раздел в разработке. Контент появится позже.</p>
-      </header>
-    </div>
-  </section>
+    <section class="military-gallery" aria-labelledby="mil-title">
+      <div class="mil-container">
+        <h2 id="mil-title" class="mil-title reveal">Выживание в лесу - день 4</h2>
 
-  <section id="vcx-day4" class="vcx-day2 reveal" aria-labelledby="vcx-day4-title">
-    <div class="vcx-day2-bg" aria-hidden="true">
-      <div class="vcx-day2-gradient"></div>
-      <div class="vcx-day2-noise"></div>
-    </div>
-    <div class="vcx-container vcx-day2-wrap">
-      <header class="vcx-day2-header">
-        <h2 id="vcx-day4-title">День 4</h2>
-        <p class="vcx-day2-lead">Раздел в разработке. Контент появится позже.</p>
-      </header>
-    </div>
-  </section>
+        <div class="mil-columns" role="list">
+          <figure class="mil-card reveal" role="listitem">
+            <img class="mil-img" src="./assets/img/day4/day4-01.jpg" alt="Военкор-2025" loading="lazy" />
+            <div class="mil-combat-text">Лучшие<br> инструкторы</div>
+            <figcaption class="mil-cap"></figcaption>
+            <button class="mil-open" aria-label="Открыть фото 1" data-full="./assets/img/day4/day4-01.jpg"></button>
+          </figure>
 
+          <figure class="mil-card reveal">
+            <img class="mil-img" src="./assets/img/day4/day4-02.jpg" alt="Военкор-2025" loading="lazy" />
+            <div class="mil-combat-text">Становление военкоров</div>
+            <figcaption class="mil-cap"></figcaption>
+            <button class="mil-open" aria-label="Открыть фото 2" data-full="./assets/img/day4/day4-02.jpg"></button>
+          </figure>
 
+          <figure class="mil-card reveal">
+            <img class="mil-img" src="./assets/img/day4/day4-03.jpg" alt="Военкор-2025" loading="lazy" />
+            <div class="mil-combat-text">Добыть огонь<br>теперь по плечу</div>
+            <figcaption class="mil-cap"></figcaption>
+            <button class="mil-open" aria-label="Открыть фото 3" data-full="./assets/img/day4/day4-03.jpg"></button>
+          </figure>
 
+          <figure class="mil-card reveal">
+            <img class="mil-img" src="./assets/img/day4/day4-04.jpg" alt="Военкор-2025" loading="lazy" />
+            <div class="mil-combat-text">Полевая<br>кухня</div>
+            <figcaption class="mil-cap"></figcaption>
+            <button class="mil-open" aria-label="Открыть фото 4" data-full="./assets/img/day4/day4-04.jpg"></button>
+          </figure>
 
+          <figure class="mil-card reveal">
+            <img class="mil-img" src="./assets/img/day4/day4-05.jpg" alt="Военкор-2025" loading="lazy" />
+            <div class="mil-combat-text">Марш-<br>бросок</div>
+            <figcaption class="mil-cap"></figcaption>
+            <button class="mil-open" aria-label="Открыть фото 5" data-full="./assets/img/day4/day4-05.jpg"></button>
+          </figure>
 
-
-  <!-- Галерея -->
-  <section <section id="materials" class="section reveal" aria-labelledby="materials-title">
-    <div class="container">
-      <h2 id="materials-title">Материалы</h2>
-      <p>Здесь будут собраны документы, ссылки и сопроводительные материалы репортажа.</p>
-    </div>
-  </section>
-  id="gallery" class="section">
-  <div class="container">
-    <h2 class="h2">Фотогалерея</h2>
-    <div class="carousel" aria-label="Галерея фото">
-      <div class="carousel-track">
-        <figure class="slide"><img src="assets/img/day1/day1-01.jpg" alt="Полигон. Отработка эвакуации"></figure>
-        <figure class="slide"><img src="assets/img/day1/day1-02.jpg" alt="Коммуникация по радиоканалу"></figure>
-        <figure class="slide"><img src="assets/img/day1/day1-03.jpg" alt="Тактическая медицина на точке"></figure>
-        <figure class="slide"><img src="assets/img/day1/day1-04.jpg" alt="Инструктаж перед упражнением"></figure>
-      </div>
-    </div>
-  </div>
-  </section>
-
-  <!-- Хронология (единая лента) -->
-  <section id="timeline" class="section">
-    <div class="container">
-      <h2 class="h2">Хронология</h2>
-      <div class="timeline horizontal" aria-label="Хронология событий">
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <h3>Пролог</h3>
-            <p>Знакомство с инструкторами, техника безопасности, комплектация индивидуального набора.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <h3>День 1</h3>
-            <p>Медицина: жгуты, эвакуация, работа звеном. Радиообмен и ориентирование.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <h3>День 2</h3>
-            <p>Совместные действия с отделениями, маскировка, сопровождение группы на маршруте.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <h3>День 3</h3>
-            <p>Итоговое задание: комплексная связка навыков. Разбор типичных ошибок.</p>
-          </div>
+          <figure class="mil-card reveal">
+            <img class="mil-img" src="./assets/img/day4/day4-06.jpg" alt="Военкор-2025" loading="lazy" />
+            <div class="mil-combat-text">В самой<br>гуще событий</div>
+            <figcaption class="mil-cap"></figcaption>
+            <button class="mil-open" aria-label="Открыть фото 6" data-full="./assets/img/day4/day4-06.jpg"></button>
+          </figure>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Контакты / подвал -->
-  <footer id="contacts" class="footer">
-    <div class="container">
-      <p>Автор: <strong>Никита Сафиуллин</strong>, журналист «СБ. Беларусь сегодня».</p>
-      <p>По вопросам материалов — редакция SB.BY.</p>
-      <p class="muted">Источник медиафайлов: учебные полигоны мероприятия «Военкор‑2025». Все права соблюдены.</p>
-      <div class="foot-nav">
-        <a href="#overview">Обзор</a> · <a href="#materials">Материалы</a> · <a href="#gallery">Галерея</a> · <a
-          href="#timeline">Хронология</a>
+      <section class="why" aria-labelledby="day4-why">
+        <h2 id="day4-why" class="day__title">Почему это важно?</h2>
+
+        <article class="why__item" aria-label="Цитата Никиты Сафиуллина">
+          <div class="why__content vcx-hero__card">
+            <header class="quote__header">
+              <h4 class="quote__name reveal">
+                Никита Сафиуллин, специальный корреспондент издательского дома «Беларусь Сегодня»
+                <span class="quote__call">Позывной «Гудок»</span>
+              </h4>
+            </header>
+            <blockquote class="quote__text reveal">
+              Но не дай бог, чтобы полученные навыки нам пришлось применять! А за возможность ими овладеть большое
+              спасибо
+              инструкторам и Министерству обороны. Кто знает, может, когда-то они спасут мне жизнь. И ещё. Я точно
+              запишусь
+              в тренажёрный зал — серьёзно работать над своей физической формой. Считал её более чем приемлемой, но на
+              деле
+              оказалось совсем не так.
+            </blockquote>
+          </div>
+          <figure class="why__media">
+            <img src="/assets/img/day4/saffiulin.jpg" alt="Никита Сафиуллин">
+            <figcaption class="why__tag">«Гудок»</figcaption>
+          </figure>
+        </article>
+
+        <article class="why__item why__item--reverse" aria-label="Цитата Руслана Дергеля">
+          <figure class="why__media">
+            <img src="./assets/img/day4/dergel.jpg" alt="Руслан Дергель">
+            <figcaption class="why__tag">«Борода»</figcaption>
+          </figure>
+          <div class="why__content vcx-hero__card">
+            <header class="quote__header">
+              <h4 class="quote__name">
+                Корреспондент районной газеты «Горецкий вестник» Руслан Дергель
+                <span class="quote__call">Позывной «Борода»</span>
+              </h4>
+            </header>
+            <blockquote class="quote__text reveal">
+              С тяготами этих курсов я ознакомился через видеоролики с прошлых лет и был готов к ним. К тому же, я много
+              путешествую автостопом и на велосипеде, поэтому жить в палатке привык. Но не могу сказать, что мне тут
+              легко.
+              Мы постоянно находимся в движении, испытываем серьёзные физические и психологические нагрузки. А эти
+              проверки
+              на бдительность, «птички» и гранаты не дают расслабиться ни на секунду. Но самое тяжёлое — тактическая
+              медицина.
+              Научиться правильно затягивать жгуты на условно раненой конечности в принципе не очень просто, а тяжёлые
+              шлема
+              и бронежилеты только усложняют задачу.
+            </blockquote>
+          </div>
+        </article>
+
+        <article class="why__item" aria-label="Цитата Алексея Сосновского">
+          <div class="why__content vcx-hero__card">
+            <header class="quote__header">
+              <h4 class="quote__name reveal">
+                Телеоператор Белтелерадиокомпании Алексей Сосновский
+                <span class="quote__call">Позывной «Линза»</span>
+              </h4>
+            </header>
+            <blockquote class="quote__text reveal">
+              Да, прикольно пострелять боевыми патронами из настоящего оружия, но не более. А вот то, что нас ждало
+              дальше...
+              Это было безумно сложно. Когда смотришь со стороны, кажется: «Ну проползти 20 метров, что тут такого». А
+              на деле
+              на тебе шлем, который предательски сползает, бронежилет, весящий 20 килограмм, и солдаты постоянно возле
+              уха
+              стреляют, гонят вперёд. Всё это накладывается — и ты полностью дезориентирован. Очень тяжело, но мы друг
+              друга
+              поддерживаем, пытаемся сохранить позитивный настрой. Вроде получается.
+            </blockquote>
+          </div>
+          <figure class="why__media">
+            <img src="./assets/img/day4/sosnovskiy.jpg" alt="Алексей Сосновский">
+            <figcaption class="why__tag">«Линза»</figcaption>
+          </figure>
+        </article>
+      </section>
+
+      <footer id="contacts" class="footer">
+        <section id="contact" class="contact-section">
+          <div class="contact-bg" aria-hidden="true"></div>
+
+          <div class="contact-wrap">
+            <header class="contact-head">
+              <h2 class="contact-title">Следите за нашими репортажами</h2>
+              <p class="contact-lead">
+                Подписывайтесь на наши соцсети, чтобы не пропустить новые истории
+              </p>
+            </header>
+
+            <nav class="social-list" aria-label="Социальные сети">
+              <a class="social-btn" href="https://t.me/sbbytoday" target="_blank" rel="noopener">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M9.04 15.53 8.9 19.4c.41 0 .59-.18.8-.4l1.92-1.85 3.98 2.92c.73.4 1.25.19 1.44-.68l2.61-12.27c.27-1.25-.45-1.74-1.25-1.43L3.7 9.63c-1.2.47-1.18 1.14-.2 1.45l4.3 1.34 9.98-6.3c.47-.29.9-.13.55.16z"
+                      fill="currentColor" />
+                  </svg>
+                </span>
+                <span>Telegram</span>
+              </a>
+              <a class="social-btn" href="https://vk.com/sbbytoday" target="_blank" rel="noopener">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12.9 17h-1.2c-3.9 0-6.1-2.7-6.1-7.1V9h2.5c.1 2.9 1.4 4.6 2.5 5V9h2.2v3.1c1.1-.1 2.3-1.8 2.5-3.1h2.4c-.3 2.1-1.7 3.7-2.7 4.3 1 .4 2.5 1.8 3.1 3.7h-2.6c-.6-1.5-1.9-2.6-2.7-2.7V17z"
+                      fill="currentColor" />
+                  </svg>
+                </span>
+                <span>ВКонтакте</span>
+              </a>
+              <a class="social-btn" href="https://www.youtube.com/channel/UCEfC_TEr_nmbCcVeDHUgzjg" target="_blank"
+                rel="noopener">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M23 7.5s-.2-1.6-.8-2.3c-.7-.8-1.5-.8-1.8-.9C17.9 3.9 12 3.9 12 3.9h0s-5.9 0-8.4.4c-.3 0-1.1.1-1.8.9C.2 5.9 0 7.5 0 7.5S0 9.3 0 11v1.9s.2 1.6.8 2.3c.7.8 1.6.8 2 1 1.4.1 9.2.4 9.2.4s5.9 0 8.4-.4c.3 0 1.1-.1 1.8-.9.6-.7.8-2.3.8-2.3V11c0-1.7 0-3.5 0-3.5zM9.6 13.5V7.9l6 2.8-6 2.8z"
+                      fill="currentColor" />
+                  </svg>
+                </span>
+                <span>YouTube</span>
+              </a>
+              <a class="social-btn" href="https://www.instagram.com/sbbytoday" target="_blank" rel="noopener">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2.2A2.8 2.8 0 1 1 9.2 12 2.8 2.8 0 0 1 12 9.2ZM18 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+                      fill="currentColor" />
+                  </svg>
+                </span>
+                <span>Instagram</span>
+              </a>
+            </nav>
+
+
+            <footer class="contact-foot">
+              <p>
+                © 2025 SB.BY
+              </p>
+            </footer>
+          </div>
+        </section>
+      </footer>
+
+
+
+
+      <button id="audio-toggle" type="button" aria-pressed="false"><span id="audio-label">Музыка: выкл</span></button>
+      <audio id="bg-audio" preload="metadata" data-src="/assets/img/background-music.mp3"></audio>
+      <button id="to-top" class="button to-top" aria-label="Наверх">Наверх ↑</button>
+
+      <script src="./assets/js/hero.js" defer></script>
+
+      <script src="./assets/js/begin-text-block.js" defer></script>
+      <script src="./assets/js/nav.js" defer></script>
+      <script src="./assets/js/main.js" defer></script>
+      <script src="./assets/js/masonry.js" defer></script>
+      <script src="./assets/js/photo-day-2.js" defer></script>
+      <script src="./assets/js/day-3.js" defer></script>
+      <script src="./assets/js/reveal.js" defer></script>
+      <script src="./assets/js/day-4.js" defer></script>
+      <script src="/assets/js/main.patched.js" defer></script>
+
+      <div class="mil-lightbox" id="globalLightbox" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+        <img class="mil-full" alt="Увеличенное фото">
+        <button class="mil-close" aria-label="Закрыть">✕</button>
+        <button class="mil-prev" aria-label="Предыдущее">‹</button>
+        <button class="mil-next" aria-label="Следующее">›</button>
       </div>
-    </div>
-  </footer>
-
-  <!-- audio removed in light build -->
-  <div class="audio-ctrl"><button id="audio-toggle" class="button small" data-state="off"><span id="audio-label">Музыка:
-        выкл</span></button></div>
-  <button id="to-top" class="button to-top" aria-label="Наверх">Наверх ↑</button>
-
-  <script src="./assets/js/hero.js" defer></script>
-  <script src="./assets/js/mosaic.js" defer></script>
-  <script src="./assets/js/begin-text-block.js" defer></script>
-  <script src="./assets/js/day-2.js" defer></script>
-  <script src="./assets/js/nav.js"></script>
-  <script src="./assets/js/main.js" defer></script>
-  <script src="/assets/js/masonry.js"></script>
 </body>
 
 </html>
