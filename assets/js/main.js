@@ -421,3 +421,61 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
   });
 });
+
+
+(() => {
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const isPlaying = (m) => m && m.currentTime > 0 && !m.paused && !m.ended && m.readyState > 2;
+  const isAudible = (m) => !m.muted && m.volume > 0 && getComputedStyle(m).visibility !== 'hidden';
+
+  
+  const isExempt = (m) => m.hasAttribute('data-solo-exempt');
+
+  const pauseOthers = (except) => {
+    $$('audio, video').forEach((m) => {
+      if (m === except) return;
+      if (isExempt(m)) return;     
+      if (!isAudible(m)) return;
+      if (!isPlaying(m)) return;
+      try { m.pause(); } catch {}
+    });
+  };
+
+  const onPlay = (e) => {
+    const el = e.target;
+    if (!(el instanceof HTMLMediaElement)) return;
+    if (isExempt(el)) return;    
+    if (isAudible(el)) pauseOthers(el);
+  };
+
+  
+  const onVolumeChange = (e) => {
+    const el = e.target;
+    if (!(el instanceof HTMLMediaElement)) return;
+    if (isExempt(el)) return;
+    if (!isPlaying(el)) return;
+    if (isAudible(el)) pauseOthers(el);
+  };
+
+  const attach = (m) => {
+    m.addEventListener('play', onPlay);
+    m.addEventListener('volumechange', onVolumeChange);
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    $$('audio, video').forEach(attach);
+    
+    const mo = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        m.addedNodes && m.addedNodes.forEach((node) => {
+          if (node instanceof HTMLMediaElement) attach(node);
+          else if (node && node.querySelectorAll) {
+            node.querySelectorAll('audio, video').forEach(attach);
+          }
+        });
+      });
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  });
+})();
+
