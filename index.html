@@ -97,24 +97,26 @@
     }
 
     @media (prefers-reduced-motion:reduce) {
-      #splash {
-        transition: none !important;
-      }
 
+      #splash,
       #splash img {
         transition: none !important;
       }
     }
   </style>
+
   <script>
     document.documentElement.classList.add('splash-lock');
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
+    // Скрываем заставку сразу после построения DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(() => {
         const splash = document.getElementById('splash');
-        splash.classList.add('hide'); // плавное исчезновение
-        document.documentElement.classList.remove('splash-lock');
-      }, 3000);
+        if (splash) {
+          splash.classList.add('hide');
+          document.documentElement.classList.remove('splash-lock');
+        }
+      });
     });
 
 
@@ -943,7 +945,7 @@
       <script>
         window.thumbs = document.querySelectorAll('.military-gallery .mil-open');
       </script>
-      <script src="/assets/js/main.patched.js" defer></script>
+      <script src="./assets/js/main.patched.js" defer></script>
 
       <div class="mil-lightbox" id="global-mil-lightbox" role="dialog" aria-modal="true" aria-hidden="true"
         tabindex="-1">
