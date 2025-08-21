@@ -10,7 +10,9 @@
     content="Лендинг-страница репортажа «Военкор-2025» от лица журналиста СБ Беларусь сегодня — Никиты Сафиуллина: ключевые факты, фото, видео, хронология." />
 
   <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="preload" as="image" href="./assets/img/day1/slide-1.avif" type="image/avif">
 
+  <link rel="preload" as="image" href="./assets/img/logo.png" type="image/png">
   <link rel="icon" href="./assets/favicon/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="./assets/favicon/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="./assets/favicon/favicon-192x192.png" sizes="192x192">
@@ -108,7 +110,6 @@
   <script>
     document.documentElement.classList.add('splash-lock');
 
-    // Скрываем заставку сразу после построения DOM
     document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => {
         const splash = document.getElementById('splash');
@@ -156,10 +157,15 @@
   <div class="progress" aria-hidden="true"></div>
   <nav class="navbar" role="navigation" aria-label="Основная навигация">
     <div class="inner container">
+
+
       <a href="https://www.sb.by/" class="logo" target="_blank" rel="noopener noreferrer">
-        <img src="./assets/img/logo.png" alt="СБ. Беларусь сегодня — логотип" width="36" height="36">
+        <img src="./assets/img/logo.png" alt="СБ. Беларусь сегодня — логотип" width="36" height="36" loading="eager"
+          decoding="async" fetchpriority="high">
         <span class="logo-text">SB.BY</span>
       </a>
+
+
       <button class="burger" id="nav-burger" aria-label="Меню" aria-controls="nav-menu" aria-expanded="false"><span
           class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span></button>
       <div class="tabs" id="nav-menu">
