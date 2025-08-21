@@ -105,10 +105,6 @@
         transition: none !important;
       }
     }
-
-    #global-mil-lightbox {
-      display: none !important;
-    }
   </style>
   <script>
     document.documentElement.classList.add('splash-lock');
@@ -488,12 +484,6 @@
       </div>
     </div>
 
-    <div class="mil-lightbox" aria-hidden="true">
-      <img class="mil-full" alt="Увеличенное фото" />
-      <button class="mil-close" aria-label="Закрыть">✕</button>
-      <button class="mil-prev" aria-label="Предыдущее">‹</button>
-      <button class="mil-next" aria-label="Следующее">›</button>
-    </div>
   </section>
 
 
@@ -543,7 +533,7 @@
 
 
           <figure class="stress__media">
-            <video class="stress__video" controls preload="metadata">
+            <video class="stress__video" controls preload="metadata" data-media="video">
               <source src="./assets/img/day3/army.mp4" type="video/mp4">
               Ваш браузер не поддерживает видео.
             </video>
@@ -581,7 +571,7 @@
           </article>
         </div>
       </section>
-     
+
       <section class="tasks" aria-labelledby="day3-tasks">
         <h3 id="day3-tasks" class="tasks__title reveal">ЗАДАЧИ ТРЕТЬЕГО ДНЯ</h3>
         <ul class="tasks__list">
@@ -607,12 +597,12 @@
 
       <div class="mil-columns" role="list">
         <figure class="mil-card reveal" role="listitem">
-          <img class="mil-img" src="./assets/img/day3/day3-01.png" alt="Военкор-2025" loading="lazy" /></figure>
+          <img class="mil-img" src="./assets/img/day3/day3-01.png" alt="Военкор-2025" loading="lazy" />
           <div class="mil-combat-text">На огневом<br> рубеже</div>
           <figcaption class="mil-cap"></figcaption>
           <button class="mil-open" aria-label="Открыть фото 1" data-full="./assets/img/day3/day3-01.png"></button>
         </figure>
-      
+
         <figure class="mil-card reveal">
           <img class="mil-img" src="./assets/img/day3/day3-02.jpg" alt="Военкор-2025" loading="lazy" />
           <div class="mil-combat-text">Испытание<br>огнем</div>
@@ -636,7 +626,7 @@
 
         <figure class="mil-card reveal">
           <img class="mil-img" src="./assets/img/day3/day3-05.jpg" alt="Военкор-2025" loading="lazy" />
-          <div class="mil-combat-text">Топографическая<br>подготовка</div>
+          <div class="mil-combat-text">Военная<br>топография</div>
           <figcaption class="mil-cap"></figcaption>
           <button class="mil-open" aria-label="Открыть фото 5" data-full="./assets/img/day3/day3-05.jpg"></button>
         </figure>
@@ -715,9 +705,10 @@
                     aria-label="Громкость">
                 </div>
 
-                <audio class="mil-audio__el" preload="metadata">
+                <audio class="mil-audio__el" preload="metadata" data-media="story">
                   <source src="./assets/img/day4/sound-koster.mp3" type="audio/mpeg">
                 </audio>
+
               </div>
             </div>
           </div>
@@ -846,7 +837,7 @@
               </h4>
             </header>
             <blockquote class="quote__text reveal">
-              Да, прикольно пострелять боевыми патронами из настоящего оружия, но не более. А вот то, что нас ждало
+              Да, прикольно пострелять боевыми патронами из настоящего оружия. А вот то, что нас ждало
               дальше...
               Это было безумно сложно. Когда смотришь со стороны, кажется: «Ну проползти 20 метров, что тут такого». А
               на деле
@@ -934,7 +925,9 @@
 
 
       <button id="audio-toggle" type="button" aria-pressed="false"><span id="audio-label">Музыка: выкл</span></button>
-      <audio id="bg-audio" preload="metadata" data-src="./assets/img/background-music.mp3"></audio>
+      <audio id="bg-audio" preload="metadata" data-src="./assets/img/background-music.mp3" data-media="music"
+        loop></audio>
+
       <button id="to-top" class="button to-top" aria-label="Наверх">Наверх ↑</button>
 
       <script src="./assets/js/hero.js" defer></script>
@@ -947,9 +940,13 @@
       <script src="./assets/js/day-3.js" defer></script>
       <script src="./assets/js/reveal.js" defer></script>
       <script src="./assets/js/day-4.js" defer></script>
+      <script>
+        window.thumbs = document.querySelectorAll('.military-gallery .mil-open');
+      </script>
       <script src="/assets/js/main.patched.js" defer></script>
 
-      <div class="mil-lightbox" id="globalLightbox" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+      <div class="mil-lightbox" id="global-mil-lightbox" role="dialog" aria-modal="true" aria-hidden="true"
+        tabindex="-1">
         <img class="mil-full" alt="Увеличенное фото">
         <button class="mil-close" aria-label="Закрыть">✕</button>
         <button class="mil-prev" aria-label="Предыдущее">‹</button>

@@ -1,98 +1,127 @@
+/* main.patched.js — единая версия лайтбокса (доступность OK) */
+(function () {
+  const qs  = (sel, root = document) => root.querySelector(sel);
+  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-(function(){
-  const modal = document.getElementById('global-mil-lightbox');
-  const closeBtn = modal.querySelector('.mil-close');
-  const focusableSel = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
-  let lastFocus = null;
+  document.addEventListener('DOMContentLoaded', () => {
+    // Ищем модалку (оставлена обратная совместимость по id)
+    const modal =
+      document.getElementById('global-mil-lightbox') ||
+      document.getElementById('globalLightbox') ||
+      qs('.mil-lightbox');
 
-  function openModal(){
-    lastFocus = document.activeElement;
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');     // сначала показать
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
-    (modal.querySelector(focusableSel) || modal).focus();
-  }
-  function closeModal(){
-    (lastFocus || document.body).focus();           // сначала увести фокус
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');      // затем скрыть
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-  }
+    if (!modal) { console.warn('[lightbox] container not found'); return; }
 
-  // Привяжите openModal к вашему коду (не на мобилке!)
-  closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e)=>{ if (e.target === modal) closeModal(); });
-  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    const full     = qs('.mil-full',  modal);
+    const btnClose = qs('.mil-close', modal);
+    const btnPrev  = qs('.mil-prev',  modal);
+    const btnNext  = qs('.mil-next',  modal);
 
-  // Экспорт при необходимости:
-  window.__openMilLightbox = openModal;
-  window.__closeMilLightbox = closeModal;
-})
- function show(i){
-    if (!urls.length) return;
-    idx = ((i % urls.length) + urls.length) % urls.length;
-    imgEl.src = urls[idx];
-  }
-  function focusTrap(e){
-    if (e.key !== 'Tab') return;
-    const focusables = modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
-    if (!focusables.length) return;
-    const first = focusables[0], last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  }
+    if (!full || !btnClose || !btnPrev || !btnNext) {
+      console.warn('[lightbox] required controls missing');
+      return;
+    }
 
-  function open(startIndex){
-    if (!openAllowed) return;            // на мобилке не открываем
-    lastFocus = document.activeElement;  // запоминаем, куда вернуть фокус
-    show(startIndex);
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');     // 1) показать для AT
-    freeze.forEach(el => el.inert = true);          // 2) блокируем фон
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
-    (btnClose || modal).focus();                    // 3) переводим фокус внутрь
-    modal.addEventListener('keydown', focusTrap);
-  }
+    // Фокус-якорь вне модалки, чтобы не получать warning при aria-hidden
+    function ensureFocusSink() {
+      let sink = document.getElementById('focus-sink');
+      if (!sink) {
+        sink = document.createElement('span');
+        sink.id = 'focus-sink';
+        sink.tabIndex = -1;
+        sink.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;';
+        document.body.prepend(sink);
+      }
+      return sink;
+    }
 
-  function close(){
-    (lastFocus || document.body).focus();           // 1) уводим фокус
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');      // 2) скрываем
-    freeze.forEach(el => el.inert = false);         // 3) разблокируем фон
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-    modal.removeEventListener('keydown', focusTrap);
-  }
+    const isDesktop = () => matchMedia('(min-width: 821px)').matches;
 
-  function prev(){ show(idx - 1); }
-  function next(){ show(idx + 1); }
+    let list = [];
+    let idx  = 0;
+    let lastFocus = null;
 
-  // привязки
-  thumbs.forEach((b, i) => {
-    b.addEventListener('click', (e) => {
-      // если остался мобильный сценарий «показать подпись», просто выходим
-      if (!openAllowed) { e.preventDefault(); return; }
-      e.preventDefault();
-      open(i);
+    function collectFrom(trigger) {
+      const gallery = trigger.closest('.military-gallery') || document;
+      const items = qsa('.mil-card .mil-open, .mil-card [data-full]', gallery);
+      return items.length ? items : qsa('.mil-card img', gallery);
+    }
+
+    function srcOf(el) {
+      const fig = el.closest('figure');
+      return el?.dataset?.full
+        || qs('img', fig)?.getAttribute('data-full')
+        || qs('img', fig)?.src
+        || '';
+    }
+
+    function openAt(i) {
+      if (!list.length) return;
+      lastFocus = document.activeElement;
+
+      idx = (i + list.length) % list.length;
+      const src = srcOf(list[idx]);
+      if (!src) return;
+
+      full.src = src;
+      modal.classList.add('open');
+      modal.removeAttribute('aria-hidden'); // показать для AT
+      document.documentElement.classList.add('modal-open');
+      document.body.classList.add('modal-open');
+      (btnClose || modal).focus();
+    }
+
+    function close() {
+      const sink = ensureFocusSink();
+
+      // 1) уводим фокус наружу ДО aria-hidden (устраняет warning)
+      if (modal.contains(document.activeElement)) {
+        (qs(':focus', modal) || btnClose)?.blur?.();
+        sink.focus();
+      }
+
+      // 2) скрываем модалку
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      full.src = '';
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
+
+      // 3) возвращаем фокус туда, откуда открывали
+      requestAnimationFrame(() => {
+        if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+        lastFocus = null;
+      });
+    }
+
+    const prev = () => openAt(idx - 1);
+    const next = () => openAt(idx + 1);
+
+    // Делегированное открытие по .mil-open или [data-full]
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.mil-open,[data-full]');
+      if (!trigger) return;
+      if (!isDesktop()) return;
+
+      list = collectFrom(trigger);
+      const start = list.indexOf(trigger);
+      openAt(start >= 0 ? start : 0);
     });
+
+    // Управление
+    btnClose.addEventListener('click', close);
+    btnPrev .addEventListener('click', prev);
+    btnNext .addEventListener('click', next);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape')     close();
+      if (e.key === 'ArrowLeft')  prev();
+      if (e.key === 'ArrowRight') next();
+    });
+
+    // Экспорт при необходимости
+    window.milLightbox = { openAt, close, next, prev };
   });
-  btnClose.addEventListener('click', close);
-  btnPrev.addEventListener('click',  prev);
-  btnNext.addEventListener('click',  next);
-  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-  window.addEventListener('keydown', (e) => {
-    if (modal.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft')  prev();
-    if (e.key === 'ArrowRight') next();
-  });
-
-  // экспорт при желании
-  window.milLightbox = { open, close, next, prev };
-;
-
-
-
+})();
