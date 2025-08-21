@@ -342,3 +342,23 @@
     })();
   });
 })();
+
+// auto-lazy for all <img>, except eager/critical
+document.addEventListener('DOMContentLoaded', () => {
+  const imgs = document.querySelectorAll('img');
+  imgs.forEach((img) => {
+    // пропускаем критические
+    if (
+      img.classList.contains('eager') ||
+      img.getAttribute('loading') === 'eager' ||
+      img.getAttribute('fetchpriority') === 'high'
+    ) return;
+
+    // если уже задано loading, оставляем
+    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+
+    // безопасно ускоряем декодирование
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+  });
+});
+
